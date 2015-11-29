@@ -1,0 +1,53 @@
+# Git stuff
+# --------------------------------------------------------------------
+# De-inits and Removes a submodule:
+function GitRemoveSubmodule() {
+	git submodule deinit -f "$1"
+	git rm --cached "$1"
+	rm -rf .git/modules/"$1"
+	rm -rf "$1"
+}
+
+# --------------------------------------------------------------------
+# launch a legacy Chrome version
+
+chromeLegacy() {
+	package="/Applications/Chrome Legacy/"$1"/Google Chrome.app"
+	if [ test -d $package ]; then 
+		app=$package"/Contents/MacOS/Google Chrome"
+		(
+			${app} --user-data-dir=$1 > /dev/null 2>&1;
+		rm -r $1
+		) &
+	else
+		echo "Legacy Chrome ${$1} is not installed."
+	fi
+}
+
+#chrome8() {
+#	app="/Applications/Chrome Legacy/8.0.5/Google Chrome.app/Contents/MacOS/Google Chrome"
+#	(
+#	${app} --user-data-dir=$1 > /dev/null 2>&1;
+#	rm -r $1
+#	) &
+#}
+
+function md() {
+	mkdir -p "$@" && cd "$@"
+}
+
+# Set the current JAVA SDK:
+function setjdk() {
+  if [ $# -ne 0 ]; then
+   removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
+   if [ -n "${JAVA_HOME+x}" ]; then
+    removeFromPath $JAVA_HOME
+   fi
+   export JAVA_HOME=`/usr/libexec/java_home -v $@`
+   export PATH=$JAVA_HOME/bin:$PATH
+  fi
+ }
+ function removeFromPath() {
+  export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
+ }
+
