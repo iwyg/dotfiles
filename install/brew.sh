@@ -87,7 +87,7 @@ if test ! `which nvm`; then
     nvm install v5.2.0
 fi
 
-sh "$DOTFILES/install/cask.sh"  &
-defer = $!
+sh "$DOTFILES/install/cask.sh" &
+defer=$!
 
 wait defer

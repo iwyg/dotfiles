@@ -8,5 +8,3 @@ install eclipse
 java -Dvim.files=$HOME/.vim -Declipse.home=$ECLIPSE_HOME -jar eclim_2.5.0.jar install
 
 cd -
-
-exit 0

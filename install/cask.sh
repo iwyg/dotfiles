@@ -35,5 +35,3 @@ if [[ -e "$ECLIPSE_HOME/eclimd" ]]; then
     echo "Installing eclim..."
     source "$DOTFILES/install/eclim.sh"
 fi
-
-exit 0

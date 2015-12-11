@@ -40,5 +40,3 @@ done
 unset _file
 unset file
 unset linkfiles
-
-exit 0

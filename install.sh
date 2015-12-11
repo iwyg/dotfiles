@@ -38,6 +38,11 @@ if [ `uname` == 'Darwin' ]; then
     source "`$DOTFILES/install/brew.sh $NONEOVIM $GVIM`"
     # write default settings
     source "`$DOTFILES/osx/settings.sh`"
+
+    echo "Installing caskroom..."
+    sh "$DOTFILES/install/cask.sh" &
+    defer=$!
+
 else
     echo "OS currently not supported"
     exit 1
@@ -54,4 +59,8 @@ if [ "$NONEOVIM" == NO ]; then
     source "$DOTFILES/install/neovim.sh"
 fi
 
-exit 0
+if test $defer; then
+    wait $defer
+else
+    exit 0
+fi
