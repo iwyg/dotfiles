@@ -46,3 +46,15 @@ source $HOME/.profile
 
 export NVM_DIR="/Users/malcolm/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Base16 Shell
+if [ -z "$THEME" ]; then
+    export THEME="base16-ocean"
+fi
+if [ -z "$BACKGROUND" ]; then
+    export BACKGROUND="dark"
+fi
+
+BASE16_SHELL="$DOTFILES/base16/shell/$THEME.$BACKGROUND.sh"
+source $BASE16_SHELL
+
