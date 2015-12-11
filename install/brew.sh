@@ -86,8 +86,3 @@ if test ! `which nvm`; then
     brew -v install nvm
     nvm install v5.2.0
 fi
-
-sh "$DOTFILES/install/cask.sh" &
-defer=$!
-
-wait defer
