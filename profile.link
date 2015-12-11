@@ -1,0 +1,36 @@
+HISTFILESIZE=1000000000
+HISTSIZE=1000000
+
+export DOTFILES=$HOME/.dotfiles
+
+if [ -e "$HOME/.paths" ]; then
+	for _PATH in "`cat ~/.paths`"; do
+		if [[ -d "$_PATH" ]]; then
+			PATH=$PATH:$_PATH
+		fi
+	done
+fi
+
+PATH=$PATH:$DOTFILES/bin
+
+for rc in .osxrc .bashrc .aliases .functionsrc .localrc; do
+	if [ -e "$HOME/$rc" ]; then
+		source "$HOME/$rc"
+	fi
+done
+
+export PATH
+export COMPOSER_BIN="/usr/local/bin/composer"
+export PHP_BIN="/usr/local/bin/php"
+
+#Go environment
+export GOPATH="$HOME/env/go"
+export GOBIN="/usr/local/bin"
+export GOROOT="/usr/local/opt/go/libexec"
+
+# Base16 colour schemes:
+if [[ 'iTerm.app' == $TERM_PROGRAM ]]; then
+	source "$DOTFILES/base16/iterm"
+else
+	source "$DOTFILES/base16/shell"
+fi

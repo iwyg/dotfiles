@@ -1,0 +1,15 @@
+/usr/local/bin
+/usr/local/sbin/
+/usr/local/share
+/usr/local/share/aclocal/
+/usr/local/opt/go/libexec/bin
+/bin
+/usr/sbin
+/sbin/usr/bin
+/usr/X11/bin
+/usr/local/share/npm/bin
+~/bin
+~/homebrew/bin
+~/.composer/vendor/bin:$PATH
+/Applications/VirtualBox.app/Contents/MacOS/
+/sw2/bin

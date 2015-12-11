@@ -1,0 +1,36 @@
+# use utf-8 encoding
+set -g utf8
+set-window-option -g utf8 on
+set -g default-terminal "xterm-256color"
+# http://stackoverflow.com/questions/10158508/lose-vim-colorscheme-in-tmux-mode
+
+# do not wait for escape sequence
+set -sg escape-time 0
+
+# for OS X SimpleSIMBL and MouseTerm:
+#set-option -g mouse-select-pane on
+#set-option -g mouse-select-window on
+#set-window-option -g mode-mouse on
+#setw -g mode-mouse on
+#set-option -g mouse-select-pane on
+#set-option -g mouse-select-window on
+
+#split pages
+#
+bind - split-window -v
+bind | split-window -h
+
+# pane movement shortcuts, hjkl, like vim
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# resize pane
+bind -r H resize-pane -L 8
+bind -r J resize-pane -D 8
+bind -r K resize-pane -U 8
+bind -r L resize-pane -R 8
+
+## appearance
+source $HOME/.tmux.theme.sh

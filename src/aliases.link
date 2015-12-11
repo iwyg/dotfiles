@@ -1,0 +1,60 @@
+alias apache2ctl='sudo /usr/sbin/apachectl'
+alias mysqlstart='sudo mysqld_safe &'
+alias mysqlstop='mysqladmin -u root -p shutdown'
+alias mysqlrestart='mysqladmin -u root -p shutdown && sudo mysqld_safe &' 
+
+#alias mvim='mvim -p'
+
+alias selenium='java -jar /usr/local/Cellar/selenium-server-standalone/2.25.0/selenium-server-standalone-2.25.0.jar'
+alias music='ncmpcpp -h ptserve.local'
+alias startconnect='cd ~/Vagrant/soario && vagrant up connectserver'
+alias stoponnect='cd ~/Vagrant/soario && vagrant halt connectserver'
+
+alias startkeys='cd ~/Vagrant/soario && vagrant up keyserver'
+alias stopkeys='cd ~/Vagrant/soario && vagrant halt keyserver'
+#---------------------------------------------------------------
+#---------------------------------------------------------------
+alias pwlupgrade='pip install --upgrade git+git://github.com/Lokaltog/powerline'
+#---------------------------------------------------------------
+alias evhosts='sudo vim /etc/apache2/extra/httpd-vhosts.conf'
+alias ehosts='sudo vim /etc/hosts'
+#---------------------------------------------------------------
+
+# start tmux as 256color terminal
+alias tmux='TERM=screen-256color-bce tmux'
+
+#alias composer="docker run -v $(pwd):/app composer/composer"
+alias please='sudo'
+alias mysqlstart='mysql.server start'
+alias mysqlstop='mysql.server stop'
+
+# Map to "original" vim
+alias ov='/usr/local/bin/vim'
+alias gvim='ov -g'
+
+# alias v, vi, and vim to neovim
+alias v='vim';
+alias vi='vim';
+alias vimdiff='nvim -d'
+alias vim='nvim'
+alias cl='clear'
+
+# bash
+if [[ -f $HOME/.profile ]]; then
+	alias profile='vim ~/.profile'
+	alias src='source ~/.profile'
+elif [[ -f $HOME/.bashrc ]]; then
+	alias bashrc='vim ~/.bashrc'
+	alias src='source ~/.bashrc'
+fi
+
+# zsh
+alias updatezsh='sh ~/.zsh-update'
+alias zshrc='vim ~/.zshrc'
+alias aliases='vim ~/.aliases'
+
+# @see https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-composer
+alias php='"$(which php)" -dzend_extension=/usr/local/opt/php70-xdebug/xdebug.so'
+# creates ctags for a php project
+alias ctags-php='ctags -R --fields=+aimS --languages=php'
+alias ctags-objc='ctags --languages=objectivec --langmap=objectivec:.h.m'

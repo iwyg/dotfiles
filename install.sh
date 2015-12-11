@@ -1,43 +1,45 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
-pwd=$PWD
+export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
 
-src=`ls $pwd/src`
-
-cd $HOME;
-
-for file in $src; do
-	echo .$file
-	`rm -rf .$file`
-	`ln -s dotfiles/src/$file .$file`
+exit 0
+while [[ $# > 1 ]]; do
+	key="$1"
+	case $key in
+		--without-neovim)
+		NONEOVIM=YES
+		;;
+		--with-gvim)
+		GVIM=YES
+		;;
+		--default)
+		NONEOVIM=NO
+		GVIM=NO
+		;;
+		esac
+	shift # past argument or value
 done
 
-# if vimdir exists, exit with error
+install_link="$DOTFILES/install/link.sh"
 
-echo "Installin Vim"
-
-if [[ ! -d $HOME/.vim ]]; then
-	# Clone dotvim
-	git clone https://github.com/iwyg/dotvim.git $HOME/.vim
-	cd $HOME/.vim
-	#echo 'install vim'
-	#echo 'install NeoVim'
+if [[ ! -f "$install_link" ]]; then
+	echo "\n Linking files failed, aborting"
+	exit 1;
 fi
 
-if [[ ! -d $HOME/.conig ]]; then
-	`mkdir -p $HOME/.config`
+git submodule update --init --recursive
+
+source $install_link
+unset install_link
+
+## install homebrew stuff
+if [ `uname` == 'Darwin' ]; then
+	source "`$DOTFILES/install/brew.sh $NONEOVIM $GVIM`"
+else
+	echo "OS currently not supported"
+	exit 1
 fi
 
-cd .config
-
-rm -rf nvim 
-ln -s ../.vim nvim
-
-cd -
-
-cd $pwd;
-
-echo 'bye'
 exit 0

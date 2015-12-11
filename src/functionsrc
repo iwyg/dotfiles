@@ -1,3 +1,15 @@
+# Print available colors
+# print available colors and their numbers
+function colours() {
+    for i in {0..255}; do
+        printf "\x1b[38;5;${i}m colour${i}"
+        if (( $i % 5 == 0 )); then
+            printf "\n"
+        else
+            printf "\t"
+        fi
+    done
+}
 # Git stuff
 # --------------------------------------------------------------------
 # De-inits and Removes a submodule:
@@ -36,18 +48,4 @@ function md() {
 	mkdir -p "$@" && cd "$@"
 }
 
-# Set the current JAVA SDK:
-function setjdk() {
-  if [ $# -ne 0 ]; then
-   removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
-   if [ -n "${JAVA_HOME+x}" ]; then
-    removeFromPath $JAVA_HOME
-   fi
-   export JAVA_HOME=`/usr/libexec/java_home -v $@`
-   export PATH=$JAVA_HOME/bin:$PATH
-  fi
- }
- function removeFromPath() {
-  export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
- }
 

@@ -1,0 +1,22 @@
+# Disable Notification Center and remove the menu bar icon
+#if test `launchctl list | grep -i com.apple.notificationcenterui.agent`; then
+#	launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+#fi
+
+# Set a blazingly fast keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 0
+
+alias showdot="defaults write com.apple.finder AppleShowAllFiles -bool true; killAll Finder"
+alias hidedot="defaults write com.apple.finder AppleShowAllFiles -bool false; killAll Finder"
+
+# shake to zoom annoyances:
+alias noshake="defaults write ~/Library/Preferences/.GlobalPreferences CGDisableCursorLocationMagnification -bool true"
+alias doshake="defaults write ~/Library/Preferences/.GlobalPreferences CGDisableCursorLocationMagnification -bool false"
+
+alias nonotify="launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist"
+alias donotify="launchctl load -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist"
+
+alias updatephp56="brew update && brew upgrade `brew list | grep -i php56 | sed s/:/\\n/g`"
+alias updatephp70="brew update && brew upgrade `brew list | grep -i php70 | sed s/:/\\n/g`"
+
+alias beer="brew install -v"
