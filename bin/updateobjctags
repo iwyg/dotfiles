@@ -3,34 +3,34 @@
 set -e
 
 if [[ `uname` != 'Darwin' ]]; then
-	echo 'Your Operating System is not supported'
+    echo 'Your Operating System is not supported'
 fi
 
 while [[ $# > 1 ]]; do
-	key="$1"
-	case $key in
-		--target|-t)
-			tagfile=$2; shift
-			;;
-		--append|-a)
-			append_to=$2; shift
-			;;
-	esac
-	shift
+    key="$1"
+    case $key in
+        --target|-t)
+            tagfile=$2; shift
+            ;;
+        --append|-a)
+            append_to=$2; shift
+            ;;
+    esac
+    shift
 done
 
 if [ ! $tagfile ]; then
-	echo "no target file specified."
-	return 1
+    echo "no target file specified."
+    return 1
 fi
 
 if [ ! $append_to ]; then
-	append_to="~/code/objc/global-objc-tags"
+    append_to="~/code/objc/global-objc-tags"
 fi
 
 if [ ! -d `dirname $append_to` ]; then
-	echo "Append path "`dirname $append_to`" does not exist."
-	exit 1
+    echo "Append path "`dirname $append_to`" does not exist."
+    exit 1
 fi
 
 # Capture current working dir
@@ -38,13 +38,13 @@ current_dir=$PWD
 
 #for dir in `find -H /System/Library/Frameworks -maxdepth 2 -name '*.framework' | sed s/:/\\n/g` ; do
 for dir in `find -H /System/Library/Frameworks -maxdepth 2 -name '*.framework'` ; do
-	# cd into each framework directory ab update tagfile
-	if [[ -d "$dir" ]]; then
-		cd $dir
-		echo "\nindexing $dir"
-		`ctags --languages=objectivec --langmap=objectivec:.h.m --append $append_to $tagfile`
-		echo "done"
-	fi
+    # cd into each framework directory ab update tagfile
+    if [[ -d "$dir" ]]; then
+        cd $dir
+        echo "\nindexing $dir"
+        `ctags --languages=objectivec --langmap=objectivec:.h.m --append $append_to $tagfile`
+        echo "done"
+    fi
 done
 
 # cd back to working dir

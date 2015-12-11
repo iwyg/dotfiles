@@ -49,6 +49,8 @@ if has("autocmd")
 	autocmd FileType blade                 setlocal ts=2 sts=2 sw=2 expandtab
 	autocmd FileType toml                  setlocal ts=2 sts=2 sw=2 expandtab
 	autocmd FileType py                    setlocal ts=8 sts=4 sw=4 expandtab
+	autocmd FileType sh,zsh,bash           setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType rcshell               setlocal ts=4 sts=4 sw=4 expandtab
 
 	"""}}}
 

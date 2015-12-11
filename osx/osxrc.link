@@ -1,6 +1,6 @@
 # Disable Notification Center and remove the menu bar icon
 #if test `launchctl list | grep -i com.apple.notificationcenterui.agent`; then
-#	launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+#   launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 #fi
 
 # Set a blazingly fast keyboard repeat rate

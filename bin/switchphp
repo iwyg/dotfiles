@@ -3,37 +3,37 @@
 set -e
 
 while [[ $# > 1 ]]; do
-	key="$1"
+    key="$1"
 
-	case $key in
-		--version|-v)
-		version="php$2"
-		shift
-		;;
-	esac
-	shift # past argument or value
+    case $key in
+        --version|-v)
+        version="php$2"
+        shift
+        ;;
+    esac
+    shift # past argument or value
 done
 
 if [ ! $version ]; then
-	echo "No version specified"
-	exit 1
+    echo "No version specified"
+    exit 1
 fi
 
 if [[ ! -e "/usr/local/Cellar/$version" ]]; then
-	echo "version not found"
-	exit 1
+    echo "version not found"
+    exit 1
 fi
 
 #php_versions="$(find -H /usr/local/Cellar -maxdepth 1 -regex '.*\/php[5-7][0-9]$' | sed s/:/\\n/g)"
 
 for v in "`find -H /usr/local/Cellar -maxdepth 1 -regex '.*\/php[5-7][0-9]$'`"; do
-	phpv="`basename $v`"
+    phpv="`basename $v`"
 
-	if [ $version == $phpv ]; then
-		continue
-	fi
+    if [ $version == $phpv ]; then
+        continue
+    fi
 
-	brew unlink --force "$phpv"
+    brew unlink --force "$phpv"
 done
 unset phpv
 

@@ -5,7 +5,7 @@ VIMDIR="$DOTFILES/vim.link"
 
 ## Install Vim Plug:
 if [[ ! -e "$VIMDIR/autoload/plug.vim" ]]; then
-	curl -fLo "$VIMDIR/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo "$VIMDIR/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 if [[ ! -d "$VIMDIR/colors/base16" ]]; then
@@ -14,8 +14,8 @@ fi
 
 ## create symlinks to base 16 colors
 cd colors
-	ln -s base16/colors/*.vim ./
-cd $CDIR
+    ln -s base16/colors/*.vim ./
+cd -
 
 #mv $VIMDIR/vimrc $VIMDIR/vimconfig
 #mv $VIMDIR/gvimrc $VIMDIR/gvimconfig

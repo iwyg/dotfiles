@@ -4,7 +4,7 @@ set -e
 
 ## install caskroom
 if test ! `brew cask`; then
-	brew tap caskroom/cask
+    brew tap caskroom/cask
 fi
 ## defer huge installs
 brew cask install -v virtualbox --appdir=/Applications

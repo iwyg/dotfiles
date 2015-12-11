@@ -3,7 +3,7 @@
 set -e
 ## install homebrew
 if test ! `which brew`; then
-	ruby -e "`curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install`"
+    ruby -e "`curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install`"
 fi
 
 brew update -v
@@ -18,20 +18,20 @@ brew install -v tmux
 # install NeoVim
 # @see https://github.com/neovim/homebrew-neovim/blob/master/README.md
 if [ "$1" == NO ]; then
-	brew install -v neovim --HEAD
+    brew install -v neovim --HEAD
 fi
 
 # install graphical vim
 if [ "$2" = YES ]; then
-	brew install -v macvim --with-override-system-vim --with-lua --with-luajit
+    brew install -v macvim --with-override-system-vim --with-lua --with-luajit
 fi
 
 if test ! `which pip`; then
-	brew install -v python
+    brew install -v python
 fi
 
 if test ! `which pip3`; then
-	brew install -v python3
+    brew install -v python3
 fi
 
 pip install neovim
@@ -39,7 +39,7 @@ pip3 install neovim
 
 # install golang
 if test ! `which go`; then
-	brew install -v go
+    brew install -v go
 fi
 
 ## HEAD version to support for objc
@@ -83,8 +83,8 @@ brew install -v php56-apcu --HEAD
 
 # node version manager
 if test ! `which nvm`; then
-	brew -v install nvm
-	nvm install v5.2.0
+    brew -v install nvm
+    nvm install v5.2.0
 fi
 
 sh "$DOTFILES/install/cask.sh"  &

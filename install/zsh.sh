@@ -1,5 +1,9 @@
 #!/bin/sh
 
-echo "install Oh My ZSH"
+set -e
 
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+echo "Installing Oh My ZSH"
+
+sh -c "`curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh`"
+
+exit 0
