@@ -51,4 +51,8 @@ source "$DOTFILES/install/zsh.sh"
 # configure vim
 source "$DOTFILES/install/vim.sh"
 
+if [ "$NONEOVIM" == NO ]; then
+    source "$DOTFILES/install/neovim.sh"
+fi
+
 exit 0
