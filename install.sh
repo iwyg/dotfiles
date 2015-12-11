@@ -24,7 +24,7 @@ done
 
 install_link="$DOTFILES/install/link.sh"
 
-if [[ ! -f "$install_link" ]]; then
+if [[ ! -e "$install_link" ]]; then
 	echo "\n Linking files failed, aborting"
 	exit 1;
 fi
@@ -41,5 +41,8 @@ else
 	echo "OS currently not supported"
 	exit 1
 fi
+
+# configure vim
+source "$DOTFILES/install/vim.sh"
 
 exit 0

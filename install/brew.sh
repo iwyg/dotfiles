@@ -10,7 +10,10 @@ brew update -v
 
 # Install recent git version
 brew install -v git --HEAD --with-blk-sha1 --with-gettext --with-pcre --with-persistent-https
+# Install htop
 brew install -v htop
+# Install tmux
+brew install -v tmux
 
 # install NeoVim
 # @see https://github.com/neovim/homebrew-neovim/blob/master/README.md
