@@ -25,7 +25,7 @@ for _file in $linkfiles; do
     fi
 
     if [[ -e $file ]]; then
-        backupfile="$file.`date+'%s'`.bak";
+        backupfile="$file.`date +'%s'`.bak";
         echo "\n$file already exists, creating backup $backupfile"
         # move existing file to backup location.
         mv $file $backupfile

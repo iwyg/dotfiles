@@ -3,7 +3,7 @@
 set -e
 
 ## install caskroom
-if test ! `brew cask`; then
+if [[ ! -d "/usr/local/Library/Taps/caskroom" ]]; then
     brew tap caskroom/cask
 fi
 
@@ -15,12 +15,12 @@ fi
 if [[ -e "/Applications/VirtualBox.app" ]]; then
     echo "Installing VirtualBox"
     brew cask install -v virtualbox --appdir=/Applications
-    brew cask install -v virtualbox-extensionpack
+    brew cask install -v virtualbox-extension-pack
 fi
 
 if [[ -d "/opt/homebrew-cask/Caskroom/dockertoolbox" ]]; then
-    echo "Installing docker"
-    brew cask install -v docker-toolbox --appdir=/Applications
+    echo "docker..."
+    brew cask install -v dockertoolbox --appdir=/Applications
 fi
 
 ## install eclipse ide for eclim plugin

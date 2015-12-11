@@ -1,9 +1,9 @@
 HISTFILESIZE=1000000000
 HISTSIZE=1000000
 
-export CLICOLOR=1
-export LSCOLORS=GxFxCxDxBxegedabagaced
-export TERM=xterm-256color
+#export CLICOLOR=1
+#export LSCOLORS=GxFxCxDxBxegedabagaced
+#export TERM=xterm-256color
 
 export DOTFILES=$HOME/.dotfiles
 
@@ -34,17 +34,14 @@ export GOROOT="/usr/local/opt/go/libexec"
 
 # Node Version manager NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && ."$NVM_DIR/nvm.sh"  # This loads nvm
+
 
 # Base16 Shell
 export THEME="base16-ocean"
 export BACKGROUND="dark"
 
-BASE16_SHELL="$DOTFILES/base16/shell/$THEME.$BACKGROUND.sh"
-source $BASE16_SHELL
-
-if [[ 'iTerm.app' == $TERM_PROGRAM ]]; then
-	#source "$DOTFILES/base16/iterm/base16-ocean.dark.itermcolors"
-else
-    source $BASE16_SHELL
-fi
+#if [[ ! 'iTerm.app' == $TERM_PROGRAM ]]; then
+#    BASE16_SHELL="$DOTFILES/base16/shell/$THEME.$BACKGROUND.sh"
+#    source $BASE16_SHELL
+#fi

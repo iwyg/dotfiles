@@ -21,27 +21,18 @@ while [[ $# > 1 ]]; do
     shift # past argument or value
 done
 
-install_link="$DOTFILES/install/link.sh"
-
-if [[ ! -e "$install_link" ]]; then
-    echo "\n Linking files failed, aborting"
-    exit 1;
-fi
-
 git submodule update --init --recursive
 
-source $install_link
-unset install_link
+## linking dotfiles
+. $DOTFILES/install/link.sh
 
 if [ `uname` == 'Darwin' ]; then
-    # install homebrew packages
-    source "`$DOTFILES/install/brew.sh $NONEOVIM $GVIM`"
     # write default settings
-    source "`$DOTFILES/osx/settings.sh`"
-
-    echo "Installing caskroom..."
-    sh "$DOTFILES/install/cask.sh" &
-    defer=$!
+    . $DOTFILES/osx/settings.sh
+    # install homebrew packages
+    . $DOTFILES/install/brew.sh $NONEOVIM $GVIM
+    # install homebrew packages
+    . $DOTFILES/install/cask.sh
 
 else
     echo "OS currently not supported"
@@ -49,18 +40,15 @@ else
 fi
 
 # set zsh as the default shell
+echo "Changing shell to ZSH"
 chsh -s `which zsh`
 # Install Oh my ZSH
-source "$DOTFILES/install/zsh.sh"
+echo "Installing Oh My Zsh..."
+. $DOTFILES/install/zsh.sh
 # configure vim
-source "$DOTFILES/install/vim.sh"
+echo "Configuring VIM..."
+. $DOTFILES/install/vim.sh
 
 if [ "$NONEOVIM" == NO ]; then
-    source "$DOTFILES/install/neovim.sh"
-fi
-
-if test $defer; then
-    wait $defer
-else
-    exit 0
+    . $DOTFILES/install/neovim.sh
 fi
