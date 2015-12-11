@@ -30,7 +30,7 @@ export GOROOT="/usr/local/opt/go/libexec"
 
 # Base16 colour schemes:
 if [[ 'iTerm.app' == $TERM_PROGRAM ]]; then
-	source "$DOTFILES/base16/iterm"
+	source "$DOTFILES/base16/iterm/base16-ocean.dark.itermcolors"
 else
-	source "$DOTFILES/base16/shell"
+	source "$DOTFILES/base16/shell/base16-ocean.dark.sh"
 fi
