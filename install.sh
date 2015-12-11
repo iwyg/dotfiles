@@ -4,7 +4,6 @@ set -e
 
 export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
 
-exit 0
 while [[ $# > 1 ]]; do
     key="$1"
     case $key in
