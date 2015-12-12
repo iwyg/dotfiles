@@ -5,7 +5,6 @@ set -e
 usage() {
 cat <<EOF
 Usage: install.sh [options...]
-
 Options:
   -h, --help, ?         Shows this dialog.
       --without-neovim  Skips installing, or upgrading NeoVim.
