@@ -5,6 +5,17 @@ set -e
 echo $SHELL_SOURCE
 export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
 
+usage() {
+cat <<EOF
+Usage: install.sh [options...]
+
+Options:
+  -h, --help, ?         Shows this dialog.
+      --without-neovim  Skips installing, or upgrading NeoVim.
+      --with-gvim       Installs MacVim (or GVim).
+EOF
+}
+
 warn() {
     printf "\e[33mWARNING:\e[m %-6s\n" "$1"  >&2
 }
@@ -83,7 +94,7 @@ for key in "$@"; do
     key="$1"
     case $key in
         --help|-h|\?)
-        task "show usage"
+        usage
         exit 0
         ;;
         --without-neovim)
