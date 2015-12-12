@@ -58,3 +58,5 @@ alias php='"$(which php)" -dzend_extension=/usr/local/opt/php70-xdebug/xdebug.so
 # creates ctags for a php project
 alias ctags-php='ctags -R --fields=+aimS --languages=php'
 alias ctags-objc='ctags --languages=objectivec --langmap=objectivec:.h.m'
+alias dotfiles='cd ~/.dotfiles'
+alias dotfs='dotfiles'

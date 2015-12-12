@@ -70,7 +70,7 @@ Plug 'ktonga/vim-follow-my-lead'
 Plug 'Shougo/neomru.vim'
 """}}}
 """ NeoMake: {{{
-Plug 'benekastah/neomake', { 'do' : 'npm install -g eslint jsxhint jscs && composer global require --no-interaction squizlabs/php_codesniffer' }
+Plug 'benekastah/neomake', { 'do' : '. $HOME/.vim/bin/vim_postinstall_neomake.sh' }
 """}}}
 """ Emmet: {{{
 Plug 'mattn/emmet-vim'
@@ -121,11 +121,10 @@ Plug 'chrisbra/SudoEdit.vim'
 "Plug 'scrooloose/syntastic'
 """}}}
 """ SyntaxComplete: {{{
-Plug 'vim-scripts/SyntaxComplete'
+"Plug 'vim-scripts/SyntaxComplete'
 """}}}
 """ YouCompleteMe: {{{
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'Valloric/YouCompleteMe', { 'do': '. $HOME/.vim/bin/vim_postinstall_ycm.sh' }
 """}}}
 
 """ NeoComplete: {{{
@@ -262,8 +261,7 @@ Plug 'tobyS/pdv', { 'for': 'php' }
 Plug 'vim-php/vim-composer'
 Plug 'adoy/vim-php-refactoring-toolbox', { 'for': 'php' }
 Plug 'vim-scripts/phpfolding.vim', { 'for': 'php' }
-"Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php', 'do': 'composer global require squizlabs/php_codesniffer techlivezheng/phpctags fabpot/php-cs-fixer --no-interaction' }
-Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php', 'do': 'composer global require fabpot/php-cs-fixer --no-interaction' }
+Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php', 'do': '. $HOME/.vim/bin/vim_postinstall_php_cs_fixer.sh' }
 Plug 'Janiczek/vim-latte'
 Plug 'xsbeats/vim-blade'
 Plug 'evidens/vim-twig' 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 CDIR="`pwd`"
 VIMDIR="$DOTFILES/vim.link"

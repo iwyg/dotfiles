@@ -1,25 +1,110 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 set -e
 
+echo $SHELL_SOURCE
 export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
 
-while [[ $# > 1 ]]; do
-    key="$1"
-    case $key in
-        --without-neovim)
-        NONEOVIM=YES
+warn() {
+    printf "\e[33mWARNING:\e[m %-6s\n" "$1"  >&2
+}
+
+error() {
+    printf "\e[31mERROR:\e[m %-6s\n" "$1" >&2
+}
+
+message() {
+    printf "\e[0;34m%-6s\e[m\n" "$1" >&2
+}
+
+task() {
+    printf "%-6s\n" "$1" >&2
+}
+
+get_action_type() {
+    set -- $1
+    local type=$1
+    local action=''
+    local cmds=install reinstall update upgrade uninstall remove list
+
+    for i in "$cmds"; do
+        case $type in
+        install)
+            action='Installing'
+            shift 1
+            continue
         ;;
-        --with-gvim)
-        GVIM=YES
+        reinstall)
+            action='Re-Installing'
+            shift 1
+            continue
         ;;
-        --default)
-        NONEOVIM=NO
-        GVIM=NO
+        update)
+            action='Updating'
+            shift 1
+            continue
+        ;;
+        upgrade)
+            action='Upgrading'
+            shift 1
+            continue
+        ;;
+        uninstall)
+            action='Uninstalling'
+            shift 1
+            continue
+        ;;
+        remove)
+            action='Removing'
+            shift 1
+            continue
+        ;;
+        list)
+            action='Listing'
+            shift 1
+            continue
+        ;;
+        *)
+            error "Unknowen command $type"
+            return 1
         ;;
         esac
-    shift # past argument or value
+    shift
+    done
+
+    echo $action
+}
+
+
+install_neovim=true
+install_gvim=false
+
+for key in "$@"; do
+    key="$1"
+    case $key in
+        --help|-h|\?)
+        task "show usage"
+        exit 0
+        ;;
+        --without-neovim)
+        install_neovim=false
+        shift 1
+        continue
+        ;;
+        --with-gvim)
+        install_gvim=true
+        shift 1
+        continue
+        ;;
+        *)
+        error "Invalid argument $key"
+        exit 1
+        ;;
+esac
+    shift
 done
+
+message "fetching git submodule..."
 
 git submodule update --init --recursive
 
@@ -28,25 +113,37 @@ git submodule update --init --recursive
 
 if [ `uname` == 'Darwin' ]; then
     # write default settings
+    message "configure os x settings..."
     . $DOTFILES/osx/settings.sh
     # install homebrew packages
-    . $DOTFILES/install/brew.sh $NONEOVIM $GVIM
+
+    message "installing brews..."
+    . $DOTFILES/install/brew.sh $install_neovim $install_gvim
     # install homebrew packages
+    message "installing casks..."
     . $DOTFILES/install/cask.sh
 
 else
-    echo "OS currently not supported"
+    error "OS currently not supported"
     exit 1
 fi
 
+if test ! `which composer`; then
+    message "Installing composer"
+    curl -fSL https://getcomposer.org/installer | php
+fi
+
 # set zsh as the default shell
-echo "Changing shell to ZSH"
-chsh -s `which zsh`
+if [[ -e `which zsh` ]]; then
+    message "Changing shell to ZSH"
+    chsh -s `which zsh`
+fi
+
 # Install Oh my ZSH
-echo "Installing Oh My Zsh..."
+message "Installing Oh My Zsh..."
 . $DOTFILES/install/zsh.sh
 # configure vim
-echo "Configuring VIM..."
+message "Configuring VIM..."
 . $DOTFILES/install/vim.sh
 
 if [ "$NONEOVIM" == NO ]; then

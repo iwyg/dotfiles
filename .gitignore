@@ -1,0 +1,6 @@
+vendor/
+cache/
+/vendor/
+/cache/
+composer.json
+composer.lock

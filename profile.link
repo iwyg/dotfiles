@@ -7,6 +7,11 @@ HISTSIZE=1000000
 
 export DOTFILES=$HOME/.dotfiles
 
+#set english locale
+if [[ ! $LC_ALL == 'en_EN.UTF-8' ]]; then
+	export LC_ALL=en_EN.UTF-8
+fi
+
 if [ -e "$HOME/.paths" ]; then
 	for _PATH in "`cat ~/.paths`"; do
 		if [[ -d "$_PATH" ]]; then
@@ -32,11 +37,8 @@ export GOPATH="$HOME/env/go"
 export GOBIN="/usr/local/bin"
 export GOROOT="/usr/local/opt/go/libexec"
 
-# Node Version manager NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && ."$NVM_DIR/nvm.sh"  # This loads nvm
-
-
+# Vim ENV
+export VIM_PLUGINS="$HOME/.vim/plugged"
 # Base16 Shell
 export THEME="base16-ocean"
 export BACKGROUND="dark"

@@ -1,20 +1,37 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 set -e
+
+brew_or_msg() {
+    local cmd=`echo "$1 $2" | xargs`
+    local formula=$2
+
+    if [[ -z $3 ]]; then
+        local msgtype='warn'
+    else
+        local msgtype=$3
+    fi
+
+    local action=`get_action_type $cmd`
+
+    brew $cmd $formula || `$msgtype "$action $formula failed."`
+}
+
+
 ## install homebrew
 if test ! `which brew`; then
-    echo "Installing Homebrew..."
+    message "Installing Homebrew..."
     ruby -e "`curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install`"
 fi
 
-brew update -v
+#brew update -v
 
 # Install recent git version
-if [[ '/usr/local/bin/git' == `which git` ]]; then
-    brew uninstall --force git
-fi
+#if [[ '/usr/local/bin/git' == `which git` ]]; then
+    #brew uninstall --force git
+#fi
 
-brew install -v git --HEAD --with-blk-sha1 --with-gettext --with-pcre --with-persistent-https
+brew_or_msg "install -v" "git --HEAD --with-blk-sha1 --with-gettext --with-pcre --with-persistent-https"
 
 # Install tmux
 if test ! `which tmux`; then
@@ -32,58 +49,67 @@ if test ! `which tree`; then
 fi
 
 # Install recent git version
-if [[ ! '/usr/local/bin/zsh' == `which zsh` ]]; then
-    brew install zsh
+if [[ ! `which zsh` == '/usr/local/bin/zsh' ]]; then
+    brew_or_msg "install" "zsh"
 fi
 
-brew install reattach-to-user-namespace
+brew_or_msg "install" "reattach-to-user-namespace"
 
 # install NeoVim
 # @see https://github.com/neovim/homebrew-neovim/blob/master/README.md
-if [[ "$1" == NO ]]; then
+if [[ "$1" == true ]]; then
     if test ! `which nvim`; then
-        brew install -v neovim --HEAD
+        message "Installing NeoVim..."
+        brew_or_msg "install -v" "neovim --HEAD"
     else
-        brew reinstall -v neovim --HEAD
+        message "Updating NeoVim..."
+        brew_or_msg "reinstall -v" "neovim --HEAD"
     fi
 fi
 
 # install graphical vim
-if [[ "$2" == YES ]]; then
+if [[ "$2" == true ]]; then
     if test ! `which mvim`; then
-        brew install -v macvim --with-override-system-vim --with-lua --with-luajit
+        brew_or_msg "install -v" "macvim --with-override-system-vim --with-lua --with-luajit"
     else
-        brew upgrade nvim
+        brew_or_msg "upgrade -v" "macvim"
     fi
 fi
 
 if test ! `which pip`; then
-    brew install -v --force python
+    brew install -v python || true
 fi
 
 if test ! `which pip3`; then
-    brew install -v --force python3
+    brew install -v python3 || true
 fi
 
-if  [[ ! `pip list | grep -i 'neovim'` ]]; then
-    pip install neovim
+if  [[ ! `pip list | grep -i 'neovim' | xargs` ]]; then
+    pip install --user neovim || true
 else
-    pip install --upgrade neovim
+    pip install --upgrade --user neovim || true
 fi
 
-if  [[ ! `pip3 list | grep -i 'neovim'` ]]; then
-    pip3 install neovim
+if  [[ ! `pip3 list | grep -i 'neovim' | xargs` ]]; then
+    pip3 install neovim --user  || true
 else
-    pip3 install --upgrade neovim
+    pip3 install --upgrade --user neovim || true
 fi
 
 # install golang
 if test ! `which go`; then
-    brew install -v go
+    message "Installing golang..."
+    brew install -v go || true
 fi
 
 ## HEAD version to support for objc
+if [[ `brew list | egrep "^ctags$" | xargs` ]]; then
+    brew uninstall crags 
+fi
+
+message "Installing ctags"
 brew install -v ctags --HEAD
+brew unlink --force ctags
 
 ## install ctags-better-php for better php indexing
 curl https://raw.githubusercontent.com/shawncplus/phpcomplete.vim/master/misc/ctags-better-php.rb > /usr/local/Library/Formula/ctags-better-php.rb
@@ -92,6 +118,8 @@ ctags_links=`brew unlink ctags-better-php`
 brew link --override ctags
 
 echo $ctag_links
+
+exit
 
 #if [ -e '/usr/local/Cellar/php70' ]; then
 #    echo "Unlinking php70..."
@@ -109,7 +137,7 @@ if [[ $php_versions ]]; then
     brew uninstall -v --force $php_versions
 fi
 
-echo "Installing php56..."
+message "Installing php56..."
 
 brew install -v php56
 brew install -v php56-apcu
@@ -126,7 +154,7 @@ brew install -v php56-imagick
 brew install -v php56-msgpack
 brew install -v php56-xdebug
 brew unlink -v php56
-echo "Installing php70..."
+message "Installing php70..."
 brew install -v php70
 brew install -v php70-amqp
 brew install -v php70-intl

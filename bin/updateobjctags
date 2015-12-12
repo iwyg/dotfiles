@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 set -e
 
@@ -28,7 +28,7 @@ if [ ! $append_to ]; then
     append_to="~/code/objc/global-objc-tags"
 fi
 
-if [ ! -d `dirname $append_to` ]; then
+if [ ! -d `dirname "$append_to"` ]; then
     echo "Append path "`dirname $append_to`" does not exist."
     exit 1
 fi
