@@ -2,9 +2,6 @@
 
 set -e
 
-echo $SHELL_SOURCE
-export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
-
 usage() {
 cat <<EOF
 Usage: install.sh [options...]
@@ -114,6 +111,8 @@ for key in "$@"; do
 esac
     shift
 done
+
+export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
 
 message "fetching git submodule..."
 
