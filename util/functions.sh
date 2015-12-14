@@ -1,5 +1,13 @@
 #!/usr/bin/env sh
 
+set -e
+
+type message > /dev/null
+
+if [ $? = 0 ]; then
+    exit 0
+fi
+
 warn() {
     printf "\e[33mWARNING:\e[m %-6s\n" "$1"  >&2
 }

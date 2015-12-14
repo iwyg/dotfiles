@@ -140,22 +140,22 @@ Plug 'justinj/vim-react-snippets', { 'for': 'javascript' }
 ""}}}
 "" Languages {{{
 """ Dart: {{{
-"Plug 'bartlomiejdanek/vim-dart'
+Plug 'bartlomiejdanek/vim-dart', { 'for': 'dart' }
 """}}}
 """ Docker: {{{
 Plug 'ekalinin/Dockerfile.vim'
 """}}}
 """ Elixir: {{{
-"Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-lang/vim-elixir', { 'for': 'ex' }
 """}}}
 """ Elm: {{{
-"Plug 'lambdatoast/elm.vim'
+Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
 """}}}
 """ Swift: {{{
-"Plug 'kballard/vim-swift'
+Plug 'kballard/vim-swift', { 'for' : 'swift', 'do' : 'brew -v install swiftlint swiftgen' }
 """}}}
 """ Objective C: {{{
-"Plug 'b4winckler/vim-objc'
+Plug 'b4winckler/vim-objc', { 'for' : 'objc, switf' }
 """}}}
 """ Objective J: {{{
 "Plug 'nanki/vim-objj'

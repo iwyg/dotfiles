@@ -2,8 +2,11 @@
 
 set -e
 
+source $DOTFILES/util/functions.sh
+
 ## install caskroom
-if [[ ! -d "/usr/local/Library/Taps/caskroom" ]]; then
+if test ! `brew tap | grep -i caskroom/cask > /dev/null`; then
+    message "Installing Caskroom..."
     brew tap caskroom/cask
 fi
 
@@ -27,6 +30,11 @@ if [[ ! -d "/opt/homebrew-cask/Caskroom/dockertoolbox" ]]; then
     brew cask install -v dockertoolbox --appdir=/Applications
 else
     message "Skip installing Docker Toolbox. Already installed"
+fi
+
+if test ! `which java > /dev/null`; then
+    warn "Java appears not to be installed. Skipping..."
+    exit 0
 fi
 
 ## install eclipse ide for eclim plugin

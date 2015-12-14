@@ -2,6 +2,8 @@
 
 set -e
 
+source $DOTFILES/util/functions.sh
+
 brew_or_msg() {
     local cmd=`echo "$1 $2" | xargs`
     local formula=$2

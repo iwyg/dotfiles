@@ -16,7 +16,6 @@ doc/*
 bundle/**/doc
 autoload/*.vim
 plugin/*.vim
-bin/*.py
 plugin/*.py
 plugin/**/*.py
 plugin/*.pyc
@@ -32,3 +31,5 @@ init.vim
 autoload/plug.vim
 autoload/plug.vim.*
 log/*
+bin/
+!bin/*.sh

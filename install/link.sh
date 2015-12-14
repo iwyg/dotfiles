@@ -2,6 +2,8 @@
 
 set -e
 
+source $DOTFILES/util/functions.sh
+
 if [ ! -d $DOTFILES ]; then
     error "'DOTFILES' variable not set.\nExiting..."
     exit 1;
