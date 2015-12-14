@@ -16,7 +16,7 @@ doc/*
 bundle/**/doc
 autoload/*.vim
 plugin/*.vim
-bin/*
+bin/*.py
 plugin/*.py
 plugin/**/*.py
 plugin/*.pyc
