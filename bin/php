@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+/usr/local/bin/php -dzend_extension=`brew list php70-xdebug | tail -n1 | xargs` `echo "$@" | xargs`

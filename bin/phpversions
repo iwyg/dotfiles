@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+for path in `find -H /usr/local/Cellar -maxdepth 1 -regex '.*\/php[5-7][0-9]$'`; do
+    echo `basename $path` | xargs
+done

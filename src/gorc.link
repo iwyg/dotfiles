@@ -1,0 +1,4 @@
+#Go environment
+export GOPATH="$HOME/env/go"
+export GOBIN="/usr/local/bin"
+export GOROOT="/usr/local/opt/go/libexec"

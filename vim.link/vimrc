@@ -8,12 +8,9 @@ call plug#begin("$HOME/.vim/plugged")
 source $HOME/.vim/plugins.vim
 call plug#end()
 """}}}
-if !exists('s:my_plugins_loaded')
-	let s:my_plugins_loaded = 1
-endif
-"""}}}
 filetype plugin indent on
 syntax on
+"""}}}
 
 """ Swap and Undo {{{
 set directory=.,$TMPDIR
@@ -24,8 +21,6 @@ set nobackup
 " auto detect filechange
 "set autoread
 """}}}
-"""}}}
-
 
 """ Behaviour And Settings {{{
 """ set leaderkey to ,:

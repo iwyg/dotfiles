@@ -2,19 +2,42 @@
 
 set -e
 
-while [[ $# > 1 ]]; do
-    key="$1"
+usage() {
+cat <<EOF
+Usage: switchphp [options...]
+Options:
+  -h, --help      Shows this dialog
+  -v, --version   The php version to link to, omitting the php prefix
+EOF
+}
 
-    case $key in
+version=
+unset $version
+
+for n in "$@"; do
+    case $n in
         --version|-v)
-        version="php$2"
-        shift
+        shift 1
+        if [ -z $1 ]; then
+            echo "Error, no version given."
+            exit 1
+        fi
+        version="php$1"
+        break
+        ;;
+        --help|-h)
+        usage
+        exit 0
+        ;;
+        *)
+        echo "Unknown option $n."
+        exit 1
         ;;
     esac
-    shift # past argument or value
+    shift
 done
 
-if [ ! $version ]; then
+if [ -z $version ]; then
     echo "No version specified"
     exit 1
 fi
@@ -24,9 +47,7 @@ if [[ ! -e "/usr/local/Cellar/$version" ]]; then
     exit 1
 fi
 
-#php_versions="$(find -H /usr/local/Cellar -maxdepth 1 -regex '.*\/php[5-7][0-9]$' | sed s/:/\\n/g)"
-
-for v in "`find -H /usr/local/Cellar -maxdepth 1 -regex '.*\/php[5-7][0-9]$'`"; do
+for v in `find -H /usr/local/Cellar -maxdepth 1 -regex '.*\/php[5-7][0-9]$'`; do
     phpv="`basename $v`"
 
     if [ $version == $phpv ]; then

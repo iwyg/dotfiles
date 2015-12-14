@@ -8,41 +8,39 @@ HISTSIZE=1000000
 export DOTFILES=$HOME/.dotfiles
 
 #set english locale
-if [[ ! $LC_ALL == 'en_EN.UTF-8' ]]; then
-	export LC_ALL=en_EN.UTF-8
-fi
+#if [[ ! $LC_ALL == 'en_EN.UTF-8' ]]; then
+#	export LC_ALL=en_EN.UTF-8
+#fi
 
 if [ -e "$HOME/.paths" ]; then
-	for _PATH in "`cat ~/.paths`"; do
-		if [[ -d "$_PATH" ]]; then
-			PATH=$PATH:$_PATH
-		fi
+	for _PATH in `cat ~/.paths`; do
+		if [[ ! -d "$_PATH" ]]; then
+            continue
+        fi
+        PATH=$PATH:$_PATH
 	done
 fi
 
-PATH=$PATH:$DOTFILES/bin
+PATH=$PATH:$DOTFILES/bin:$DOTFILES/vim.link/bin
 
-for rc in .osxrc .bashrc .aliases .functionsrc .localrc; do
-	if [ -e "$HOME/$rc" ]; then
-		source "$HOME/$rc"
+for rc in .osxrc .bashrc .aliases .functionsrc .localrc .gorc; do
+	if [ ! -e "$HOME/$rc" ]; then
+        continue
 	fi
+    source "$HOME/$rc"
 done
 
-export PATH
 export COMPOSER_BIN="/usr/local/bin/composer"
 export PHP_BIN="/usr/local/bin/php"
 
-#Go environment
-export GOPATH="$HOME/env/go"
-export GOBIN="/usr/local/bin"
-export GOROOT="/usr/local/opt/go/libexec"
+# vim Plugins path
+export VIM_PLUGINS=$DOTFILES/vim.link/plugged
 
-# Vim ENV
-export VIM_PLUGINS="$HOME/.vim/plugged"
 # Base16 Shell
 export THEME="base16-ocean"
 export BACKGROUND="dark"
 
+export PATH
 #if [[ ! 'iTerm.app' == $TERM_PROGRAM ]]; then
 #    BASE16_SHELL="$DOTFILES/base16/shell/$THEME.$BACKGROUND.sh"
 #    source $BASE16_SHELL

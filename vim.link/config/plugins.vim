@@ -452,14 +452,6 @@ nnoremap <silent><leader>pur :call PhpunitRun()<CR>
 
 """}}}
 
-""" Vim Test: {{{
-nnoremap <leader>tf :TestFile<CR>
-nnoremap <leader>tn :TestNearest<CR>
-nnoremap <leader>ts :TestSuite<CR>
-nnoremap <leader>tl :TestLast<CR>
-nnoremap <leader>tv :TestVisit<CR>
-"""}}}
-
 """ Rainbow Parantheses: {{{
 let g:rbpt_colorpairs = [
             \ ['brown',       'RoyalBlue3'],
@@ -561,9 +553,16 @@ let g:neomake_javascript_jscs_maker = {
 let g:neomake_go_enabled_makers = ['gofmt', 'golint']
 let g:neomake_go_enabled_makers = ['go', 'golint']
 "let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
+"let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
+let g:neomake_php_enabled_makers = ['phpcs', 'php']
 let g:neomake_typescript_enabled_makers = ['tsc', 'tsclint']
 let g:neomake_javascript_enabled_makers = ['flow', 'eslint']
+
+if !exists('g:neomake_php_phpcs_maker')
+	let g:neomake_php_phpcs_maker = {}
+endif
+
+let g:neomake_php_phpcs_maker.args = ['--report=csv', '--standard=PSR2']
 
 
 "let g:neomake_javascript_jsx_enabled_makers = ['eslint']
@@ -721,8 +720,7 @@ nnoremap <leader>vs :VimShell<CR>
 """}}}
 
 """ Vim Test: {{{
-
-let test#php#phpunit#executable = './vendor/bin/phpunit'
+let test#php#phpunit#executable = '. ~/.dotfiles/bin/php ./vendor/bin/phpunit'
 """ if running in neovim, use :terminal to run tests.
 if has('nvim')
     let test#strategy = 'neovim'
@@ -733,16 +731,20 @@ else
 """ else use Dispatch
     let test#strategy = 'dispatch'
 endif
+
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>tn :TestNearest<CR>
+nnoremap <leader>ts :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+nnoremap <leader>tv :TestVisit<CR>
 """}}}
 
 """ YCM: {{{
+let g:ycm_auto_trigger = 1
 let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_auto_trigger = 0
 "
 """" Helps with language specific completion
-let g:ycm_semantic_triggers = {}
-
 if !exists('g:ycm_semantic_triggers')
 	let g:ycm_semantic_triggers = {}
 endif
@@ -764,4 +766,8 @@ nnoremap <leader>gg :GitGutterToggle<CR>
 let g:gitgutter_enabled = 0
 "let g:gitgutter_readltimr = 0
 "let g:gitgutter_eager = 0
+"""}}}
+
+""" Emmet {{{
+let g:user_emmet_mode = 'ni'
 """}}}

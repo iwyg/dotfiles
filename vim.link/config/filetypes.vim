@@ -24,7 +24,8 @@ if has("autocmd")
 	""" Php {{{
 	"autocmd FileType blade                      setlocal omnifunc=phpcomplete#CompletePHP
 	"autocmd FileType twig                       setlocal omnifunc=phpcomplete#CompletePHP
-	"autocmd FileType php                        setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType php                        setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType vim                        setlocal omnifunc=vimcomplete#CompleteVIM
 	"""}}}
 	"""}}}
 

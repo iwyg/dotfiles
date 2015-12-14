@@ -27,33 +27,18 @@ fi
 #brew update -v
 
 # Install recent git version
-#if [[ '/usr/local/bin/git' == `which git` ]]; then
-    #brew uninstall --force git
-#fi
-
-brew_or_msg "install -v" "git --HEAD --with-blk-sha1 --with-gettext --with-pcre --with-persistent-https"
-
-# Install tmux
-if test ! `which tmux`; then
-    brew install tmux
-fi
-
-# Install tmux
-if test ! `which htop`; then
-    brew install htop
-fi
-
-# Install tree
-if test ! `which tree`; then
-    brew install tree
-fi
-
+brew_or_msg "install -v" "git --HEAD --with-blk-sha1 --with-pcre --with-persistent-https"
+brew_or_msg "install -v" "ack"
+brew_or_msg "install -v" "the_silver_searcher"
+brew_or_msg "install -v" "htop"
+brew_or_msg "install -v" "tree"
+brew_or_msg "install -v" "tmux"
+# tmux clipboard helper
+brew_or_msg "install -v" "reattach-to-user-namespace"
 # Install recent git version
 if [[ ! `which zsh` == '/usr/local/bin/zsh' ]]; then
     brew_or_msg "install" "zsh"
 fi
-
-brew_or_msg "install" "reattach-to-user-namespace"
 
 # install NeoVim
 # @see https://github.com/neovim/homebrew-neovim/blob/master/README.md
@@ -104,7 +89,7 @@ fi
 
 ## HEAD version to support for objc
 if [[ `brew list | egrep "^ctags$" | xargs` ]]; then
-    brew uninstall crags 
+    brew uninstall ctags 
 fi
 
 message "Installing ctags"
@@ -114,22 +99,6 @@ brew unlink --force ctags
 ## install ctags-better-php for better php indexing
 curl https://raw.githubusercontent.com/shawncplus/phpcomplete.vim/master/misc/ctags-better-php.rb > /usr/local/Library/Formula/ctags-better-php.rb
 brew install -v ctags-better-php
-ctags_links=`brew unlink ctags-better-php`
-brew link --override ctags
-
-echo $ctag_links
-
-exit
-
-#if [ -e '/usr/local/Cellar/php70' ]; then
-#    echo "Unlinking php70..."
-#    brew unlink php70
-#fi
-#
-#if [ -e '/usr/local/Cellar/php56' ]; then
-#    echo "Relinking php56..."
-#    brew unlink php56 && brew link --override php56
-#fi
 
 php_versions=`brew list | egrep "^php[5-7][0-9].*?" | xargs`;
 
@@ -141,7 +110,7 @@ message "Installing php56..."
 
 brew install -v php56
 brew install -v php56-apcu
-brew install -v php56-amqp
+brew install -v php56-event
 brew install -v php56-intl
 brew install -v php56-igbinary
 brew install -v php56-mcrypt
@@ -153,10 +122,14 @@ brew install -v php56-redis
 brew install -v php56-imagick
 brew install -v php56-msgpack
 brew install -v php56-xdebug
-brew unlink -v php56
+
+brew unlink -v --force php56
+
 message "Installing php70..."
+
 brew install -v php70
 brew install -v php70-amqp
+brew install -v php70-ev
 brew install -v php70-intl
 brew install -v php70-libsodium
 brew install -v php70-mcrypt
@@ -168,7 +141,7 @@ brew install -v php70-redis --HEAD
 brew install -v php70-imagick --HEAD
 brew install -v php70-msgpack --HEAD
 brew install -v php56-apcu --HEAD
-#
+
 ## node version manager
 if test ! `which nvm`; then
     brew -v install nvm

@@ -253,7 +253,7 @@ Plug 'rodjek/vim-puppet'
 """}}}
 """ PHP: {{{
 "Plug 'mkusher/padawan.vim', { 'for': 'php', 'do': 'composer global require mkusher/padawan --no-interaction' }    " use eclim completion
-Plug 'StanAngeloff/php.vim' | Plug 'shawncplus/phpcomplete.vim'
+Plug 'StanAngeloff/php.vim' | Plug 'shawncplus/phpcomplete.vim', { 'for' : 'php' }
 Plug 'dantleech/vim-phpunit', { 'for': 'php' }
 Plug 'dantleech/vim-phpnamespace', { 'for': 'php' }
 Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }

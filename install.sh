@@ -12,21 +12,8 @@ Options:
 EOF
 }
 
-warn() {
-    printf "\e[33mWARNING:\e[m %-6s\n" "$1"  >&2
-}
-
-error() {
-    printf "\e[31mERROR:\e[m %-6s\n" "$1" >&2
-}
-
-message() {
-    printf "\e[0;34m%-6s\e[m\n" "$1" >&2
-}
-
-task() {
-    printf "%-6s\n" "$1" >&2
-}
+export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
+source "$DOTFILES/util/functions.sh"
 
 get_action_type() {
     set -- $1
@@ -110,8 +97,6 @@ for key in "$@"; do
 esac
     shift
 done
-
-export DOTFILES=`cd \`dirname "${BASH_SOURCE[0]}"\` && pwd`
 
 message "fetching git submodule..."
 

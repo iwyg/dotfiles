@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -e
+
+source "$DOTFILES/util/functions.sh"
+
+. "$DOTFILES/install/link.sh"

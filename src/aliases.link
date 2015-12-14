@@ -54,7 +54,8 @@ alias zshrc='vim ~/.zshrc'
 alias aliases='vim ~/.aliases'
 
 # @see https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-composer
-alias php='"$(which php)" -dzend_extension=/usr/local/opt/php70-xdebug/xdebug.so'
+#alias php='php -dzend_extension=`brew list php56-xdebug | tail -n1 | xargs`'
+alias php='php -dzend_extension=`brew list php70-xdebug | tail -n1 | xargs`'
 # creates ctags for a php project
 alias ctags-php='ctags -R --fields=+aimS --languages=php'
 alias ctags-objc='ctags --languages=objectivec --langmap=objectivec:.h.m'
