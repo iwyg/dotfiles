@@ -61,3 +61,7 @@ alias ctags-php='ctags -R --fields=+aimS --languages=php'
 alias ctags-objc='ctags --languages=objectivec --langmap=objectivec:.h.m'
 alias dotfiles='cd ~/.dotfiles'
 alias dotfs='dotfiles'
+
+# Stuff
+alias kungfury='open https://www.youtube.com/watch?v=bS5P_LAqiVg'
+alias horse='open https://www.youtube.com/watch?v=_UqAB--LIGM'

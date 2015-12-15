@@ -2,10 +2,9 @@
 
 set -e
 
-type message > /dev/null
-
-if [ $? = 0 ]; then
-    exit 0
+if [[ `type message 2>/dev/null; echo $?` ]]; then
+    echo "bey"
+    return
 fi
 
 warn() {

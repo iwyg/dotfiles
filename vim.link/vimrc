@@ -248,10 +248,10 @@ nmap <S-TAB> :b#<CR>
 vmap <S-TAB> :b#<CR>
 
 """ next buffer
-map <C-l> :bn<CR>
+nnoremap <silent> <C-L> :bn<CR>
 nnoremap <leader>bn <C-l>
 """ previous buffer
-map <C-h> :bp<CR>
+nnoremap <silent> <C-H> :bp<CR>
 nnoremap <leader>bp <C-h>
 
 """ next tab
