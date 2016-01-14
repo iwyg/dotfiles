@@ -5,4 +5,4 @@ if [[ -z $VIM_PLUGINS ]]; then
     exit 1
 fi
 
-. $VIM_PLUGINS/install.py --clang-completer --gocode-completer || false
+python $VIM_PLUGINS/YouCompleteMe/install.py --clang-completer --gocode-completer --tern-completer

@@ -14,9 +14,10 @@ syntax on
 
 """ Swap and Undo {{{
 set directory=.,$TMPDIR
-set undofile
-set undolevels=10000
 set history=10000
+set undofile
+set undodir=$HOME/.vim/undo
+set undolevels=10000
 set nobackup
 " auto detect filechange
 "set autoread
@@ -105,7 +106,7 @@ set listchars=tab:›\ ,eol:¬,trail:•,extends:#,nbsp:. " Highlight problemati
 
 
 """ code folding: {{{
-set foldenable
+set nofoldenable
 "fold based on indent
 set foldmethod=syntax
 "deepest fold is 10 levels
@@ -138,18 +139,16 @@ nnoremap <leader>hl :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \
 """}}}
 
 """ code completion {{{
-""" Omnicompletion {{{
-""" set omicimpletion
-"set ofu=syntaxcomplete#Complete
-"""}}}
 """ set completeopt+=longest,menu ",preview
-set completeopt=longest,menuone
+"set completeopt=longest,menuone
 set pumheight=15
-set complete-=i
+"set complete-=i
+"set completefunc=complete
+"
+"set wildmenu
+"set wildmode=longest:list,full
+"set whichwrap=b,s,h,l,<,>,[,]
 
-set wildmenu
-set wildmode=longest:list,full
-set whichwrap=b,s,h,l,<,>,[,]
 """ make <Enter> key behave like <C-y> if the completion menu is visible
 """ see http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -294,8 +293,11 @@ endif
 call SetCurrentColorScheme(myCs, myBg)
 """ Php Syntax Override:
 function! PhpSyntaxOverride()
-    hi! def link phpDocTags  phpDefine
-    hi! def link phpDocParam phpType
+	hi! def link phpDocTags  phpFunctions
+    hi! def link phpDocParam Comment
+    hi! def link phpDocIdentifier phpFunctions
+	hi! def link phpNowDoc Comment
+	hi! def link phpHereDoc Comment
 endfunction
 
 "augroup phpSyntaxOverride

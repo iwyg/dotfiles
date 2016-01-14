@@ -1,7 +1,7 @@
 """ Unite: {{{
 """ fuzzy searching
-nmap <C-p> :Unite file_rec/async<CR>
-nnoremap <C-p> :Unite file_rec/async<CR>
+"nmap <C-p> :Unite file_rec/async<CR>i
+nnoremap <C-p> :Unite file_rec/async<CR><insert>
 """ content search lile Ack/Ag
 nmap <space>/ :Unite grep:.<CR>
 nnoremap <space>/ :Unite grep:.<CR>
@@ -55,12 +55,16 @@ nmap <leader>gdc GundoClose<CR>
 """}}}
 
 """ Eclim: {{{
-let g:EclimCompletionMethod = 'omnifunc'
+""" Globaly disable eclims validation:
+let g:EclimFileTypeValidate = 0
+""" Use vims omnicompletion
+""" Note: disable autocmd omnifunc for php, otherwise this won't work
+let g:EclimCompletionMethod='omnifunc'
 """ enable syntastic
-let g:EclimPhpSyntasticEnabled = 1
+let g:EclimPhpSyntasticEnabled = 0
 """ disable js/jsx validation
 let g:eclim_javascript_jsl_warn = 0
-let g:EclimJavascriptLintEnabled = 0 
+let g:EclimJavascriptLintEnabled = 0
 """}}}
 
 """ EasyTags: {{{
@@ -289,9 +293,8 @@ let g:vim_markdown_frontmatter=1
 """ DeoPlete: {{{
 if has('nvim') 
 	let g:acp_enableAtStartup = 0
-	let g:deoplete#enable_at_startup = 1
 	""" Enables at startup
-		let g:deoplete#enable_at_startup = 1
+	let g:deoplete#enable_at_startup = 1
 	""" Enable smartcase
 	let g:deoplete#enable_smart_case = 1
 	""" set minimal keyword trigger length
@@ -385,7 +388,6 @@ if has("autocmd")
     autocmd FileType php nnoremap <leader>doc :call pdv#DocumentWithSnip()<CR>
 endif
 
-"""}}}
 
 """ PHPCSFixer: {{{
 let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
@@ -404,12 +406,14 @@ nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 """}}}
 
 """ PHPFolding: {{{
+let php_folding=1
+
 map <F5> <Esc>:EnableFastPHPFolds<Cr>
 map <F6> <Esc>:EnablePHPFolds<Cr>
 map <F7> <Esc>:DisablePHPFolds<Cr>
 """ disable auto folding
 let g:DisableAutoPHPFolding = 1
-""" }}}
+"""}}}
 
 """ PHP Namespace: {{{
 "Expands the class name under the cursor to its fully qualified name in insert mode:
@@ -554,17 +558,22 @@ let g:neomake_go_enabled_makers = ['gofmt', 'golint']
 let g:neomake_go_enabled_makers = ['go', 'golint']
 "let g:neomake_jsx_enabled_makers = ['eslint']
 "let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
-let g:neomake_php_enabled_makers = ['phpcs', 'php']
 let g:neomake_typescript_enabled_makers = ['tsc', 'tsclint']
 let g:neomake_javascript_enabled_makers = ['flow', 'eslint']
 
-if !exists('g:neomake_php_phpcs_maker')
-	let g:neomake_php_phpcs_maker = {}
-endif
+"if !exists('g:neomake_php_phpcs_maker')
+	"let g:neomake_php_phpcs_maker = {}
+"endif
 
-let g:neomake_php_phpcs_maker.args = ['--report=csv', '--standard=PSR2']
-
-
+let g:neomake_php_enabled_makers = ['php', 'phpcs']
+let g:neomake_php_phpcs_args_standard='PSR2'
+"let g:neomake_php_phpcs_maker = {
+	"\ 'exe': 'phpcs',
+	"\ 'args': ['--standard=PSR2'],
+	"\ 'errorformat':
+		"\ '%-GFile\,Line\,Column\,Type\,Message\,Source\,Severity%.%#,'.
+		"\ '"%f"\,%l\,%c\,%t%*[a-zA-Z]\,"%m"\,%*[a-zA-Z0-9_.-]\,%*[0-9]%.%#',
+	"\ }
 "let g:neomake_javascript_jsx_enabled_makers = ['eslint']
 
 """}}}
@@ -590,6 +599,7 @@ let g:neomake_php_phpcs_maker.args = ['--report=csv', '--standard=PSR2']
 "let g:syntastic_python_exec = "/usr/local/bin/python3.4"
 """" checkers:
 "let g:syntastic_php_checkers=['phpcs', 'php', 'phpmd']
+let g:syntastic_php_checkers=[]
 "let g:syntastic_jsx_checkers = ['eslint']
 "let g:syntastic_javascript_checkers = ['eslint']
 "let g:syntastic_typescript_checkers = ['tslint']
@@ -742,15 +752,19 @@ nnoremap <leader>tv :TestVisit<CR>
 """ YCM: {{{
 let g:ycm_auto_trigger = 1
 let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_min_num_identifier_candidate_chars = 2
+
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_add_preview_to_completeopt = 1
 "
 """" Helps with language specific completion
 if !exists('g:ycm_semantic_triggers')
 	let g:ycm_semantic_triggers = {}
 endif
-let g:ycm_semantic_triggers.php = ['->', '::', '(', 'use ', 'namespace ', '\', 'return ']
-let g:ycm_semantic_triggers.javascript = ['.', 'import ', 'let ', '= ', 'var ', 'const ', 'return ']
-let g:ycm_semantic_triggers.go = ['.', 'import ', 'var ', ':= ', 'return ']
+
+let g:ycm_semantic_triggers.php = ['->', '::']
 """}}}
 
 """ XDEBUG: {{{

@@ -33,3 +33,4 @@ autoload/plug.vim.*
 log/*
 bin/
 !bin/*.sh
+undo/
