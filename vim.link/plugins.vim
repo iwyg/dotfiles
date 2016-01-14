@@ -2,34 +2,34 @@
 Plug 'bling/vim-airline'
 """}}}
 """ ColorV: {{{
-Plug 'vim-scripts/colorv.vim'
+"Plug 'vim-scripts/colorv.vim'
 """}}}
 """ Goyo: {{{
-Plug 'junegunn/goyo.vim'
+"Plug 'junegunn/goyo.vim'
 """}}}
 """ Limelight: {{{
-Plug 'junegunn/limelight.vim'
+"Plug 'junegunn/limelight.vim'
 """}}}
 """ Vim Autocorrect: {{{
-Plug 'panozzaj/vim-autocorrect'
+"Plug 'panozzaj/vim-autocorrect'
 """}}}
 """ Vim Better Whitespace: {{{
-Plug 'ntpeters/vim-better-whitespace'
+"Plug 'ntpeters/vim-better-whitespace'
 """}}}
 """ Vim Multiple Cursors: {{{
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
 """}}}
 """ Vim Test: {{{
 Plug 'janko-m/vim-test'
 """}}}
 """ Vim Quickrun: {{{
-Plug 'thinca/vim-quickrun'
+"Plug 'thinca/vim-quickrun'
 """}}}
 """ Vim SourceExplorer: {{{
-Plug 'wesleyche/SrcExpl'
+"Plug 'wesleyche/SrcExpl'
 """}}}
 """ Vim RainbowParentheses: {{{
-Plug 'vim-scripts/rainbow_parentheses.vim'
+"Plug 'vim-scripts/rainbow_parentheses.vim'
 """}}}
 """ Vim Tagbar: {{{
 Plug 'majutsushi/tagbar'
@@ -38,13 +38,16 @@ Plug 'majutsushi/tagbar'
 Plug 'tomtom/tlib_vim'
 """}}}
 """ Vim Tabular: {{{
-Plug 'godlygeek/tabular'
+"Plug 'godlygeek/tabular'
 """}}}
 """ Vim Gundo: {{{
-Plug 'sjl/gundo.vim'
+"Plug 'sjl/gundo.vim'
+" Gundo fork with neovim compatibility
+" @see https://github.com/sjl/gundo.vim/pull/30
+Plug 'simnalamburt/vim-mundo'
 """}}}
 """ Vim Gundo: {{{
-Plug 'sjl/gundo.vim'
+"Plug 'sjl/gundo.vim'
 """}}}
 """ VimFiler: {{{
 Plug 'Shougo/vimfiler.vim'
@@ -64,7 +67,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'wincent/ferret'
 """}}}
 """ Vim Follow My Lead: {{{
-Plug 'ktonga/vim-follow-my-lead'
+"Plug 'ktonga/vim-follow-my-lead'
 """}}}
 """ NeoMRU: {{{
 Plug 'Shougo/neomru.vim'
@@ -82,10 +85,13 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 """}}}
 """ Vim GitGutter: {{{
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 """}}}
 """ Vim Surround: {{{
 Plug 'tpope/vim-surround'
+"""}}}
+""" Auto Pairs: {{{
+Plug 'raimondi/delimitMate'
 """}}}
 """ Vim Vinegar: {{{
 Plug 'tpope/vim-vinegar'
@@ -109,13 +115,13 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'MarcWeber/vim-addon-local-vimrc'
 """}}}
 """ Matchit: {{{
-Plug 'vim-scripts/matchit.zip'
+"Plug 'vim-scripts/matchit.zip'
 """}}}
 """ SudoVim: {{{
 Plug 'vim-scripts/sudo.vim'
 """}}}
 """ SudoEdit: {{{
-Plug 'chrisbra/SudoEdit.vim'
+"Plug 'chrisbra/SudoEdit.vim'
 """}}}
 """ Syntastic: {{{
 "Plug 'scrooloose/syntastic'
@@ -131,6 +137,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': '. $HOME/.vim/bin/vim_postinstall_ycm.sh'
 "Plug 'Shougo/neocomplete.vim'
 """}}}
 """ DeoPlete: {{{
+" Like NeoComplete but for neovim
 "Plug 'Shougo/deoplete.nvim'
 """}}}
 
@@ -140,16 +147,16 @@ Plug 'justinj/vim-react-snippets', { 'for': 'javascript' }
 ""}}}
 "" Languages {{{
 """ Dart: {{{
-Plug 'bartlomiejdanek/vim-dart', { 'for': 'dart' }
+"Plug 'bartlomiejdanek/vim-dart', { 'for': 'dart' }
 """}}}
 """ Docker: {{{
 Plug 'ekalinin/Dockerfile.vim'
 """}}}
 """ Elixir: {{{
-Plug 'elixir-lang/vim-elixir', { 'for': 'ex' }
+"Plug 'elixir-lang/vim-elixir', { 'for': 'ex' }
 """}}}
 """ Elm: {{{
-Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
+"Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
 """}}}
 """ Swift: {{{
 Plug 'kballard/vim-swift', { 'for' : 'swift', 'do' : 'brew -v install swiftlint swiftgen' }
@@ -195,18 +202,20 @@ Plug 'mxw/vim-jsx' | Plug 'pangloss/vim-javascript', { 'do' : 'npm install -g ba
 "Plug 'othree/yajs.vim'
 Plug 'othree/javascript-libraries-syntax.vim' 
 Plug 'digitaltoad/vim-jade'
-Plug 'mklabs/grunt.vim'
-Plug 'aaronj1335/underscore-templates.vim'
+"Plug 'mklabs/grunt.vim'
+"Plug 'aaronj1335/underscore-templates.vim'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'claco/jasmine.vim', { 'for': 'javascript' }
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install -g tern && npm install' }
+"Plug 'KabbAmine/gulp-vim', { 'for' : 'javascript' }
+Plug 'vim-scripts/vim-babel', { 'for' : 'javascript' }
 """}}}
 """ JSON: {{{
 Plug 'elzr/vim-json'
 """}}}
 """ Typescript: {{{
 Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install -g typescript' }
+"Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install -g typescript' }
 """}}}
 """ Ansi Escape: {{{
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -219,16 +228,16 @@ Plug 'othree/xml.vim'
 Plug 'sukima/xmledit'
 """}}}
 """ TOML: {{{
-Plug 'cespare/vim-toml'
+"Plug 'cespare/vim-toml'
 """}}}
 """ Latex: {{{
-Plug 'jcf/vim-latex'
+"Plug 'jcf/vim-latex'
 """}}}
 """ Database Access: {{{
-Plug 'vim-scripts/dbext.vim'
+"Plug 'vim-scripts/dbext.vim'
 """}}}
 """ MonogDB: {{{
-Plug 'robu3/vimongous'
+"Plug 'robu3/vimongous'
 """}}}
 """ RC: {{{
 Plug 'vim-scripts/rcshell.vim'
@@ -246,29 +255,32 @@ Plug 'tobyS/vmustache'
 Plug 'mustache/vim-mustache-handlebars'
 """}}}
 """ Vagrant: {{{
-Plug 'vim-scripts/vim-vagrant'
+"Plug 'vim-scripts/vim-vagrant'
 """}}}
 """ Puppet: {{{
-Plug 'rodjek/vim-puppet'
+"Plug 'rodjek/vim-puppet'
 """}}}
 """ PHP: {{{
-"Plug 'mkusher/padawan.vim', { 'for': 'php', 'do': 'composer global require mkusher/padawan --no-interaction' }    " use eclim completion
-Plug 'StanAngeloff/php.vim' | Plug 'shawncplus/phpcomplete.vim'
+"Plug 'mkusher/padawan.vim', { 'do': 'composer global require mkusher/padawan --no-interaction' }    " use eclim completion
+"Plug 'StanAngeloff/php.vim' | Plug 'shawncplus/phpcomplete.vim'
+Plug 'StanAngeloff/php.vim'
+"Plug 'shawncplus/phpcomplete.vim'
 Plug 'dantleech/vim-phpunit', { 'for': 'php' }
 Plug 'dantleech/vim-phpnamespace', { 'for': 'php' }
 Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }
 Plug 'tobyS/pdv', { 'for': 'php' }
 Plug 'vim-php/vim-composer'
 Plug 'adoy/vim-php-refactoring-toolbox', { 'for': 'php' }
-Plug 'vim-scripts/phpfolding.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php', 'do': '. $HOME/.vim/bin/vim_postinstall_php_cs_fixer.sh' }
-Plug 'Janiczek/vim-latte'
-Plug 'xsbeats/vim-blade'
-Plug 'evidens/vim-twig' 
-Plug 'tokutake/twig-indent', { 'for': 'twig' }
+"Plug 'Janiczek/vim-latte'
+"Plug 'xsbeats/vim-blade'
+"Plug 'evidens/vim-twig' 
+"Plug 'tokutake/twig-indent', { 'for': 'twig' }
+"Plug 'vim-scripts/phpfolding.vim'
 """}}}
 
 """ Travis: {{{
 Plug 'keith/travis.vim'
 """}}}
 
+Plug 'evanmiller/nginx-vim-syntax'
