@@ -1,0 +1,17 @@
+#!/bin/bash -e
+
+if ! test $1; then
+    MACHINE="default"
+else
+    MACHINE=$1
+fi
+
+echo "$MACHINE"
+
+if [[ ! "$(docker-machine start $MACHINE)" ]]; then
+    echo "Ups"
+    exit 1;
+fi
+
+docker-machine env $MACHINE
+eval "$(docker-machine env $MACHINE)"
