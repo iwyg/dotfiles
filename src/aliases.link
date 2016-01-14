@@ -65,3 +65,14 @@ alias dotfs='dotfiles'
 # Stuff
 alias kungfury='open https://www.youtube.com/watch?v=bS5P_LAqiVg'
 alias horse='open https://www.youtube.com/watch?v=_UqAB--LIGM'
+
+# Docker
+if [[ `uname` == 'Darwin' ]]; then
+    alias dkr='. /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
+fi
+
+alias dcc='docker-compose'
+alias dcu='docker-compose up'
+alias dcl='docker-compose logs'
+alias dm='docker-machine'
+alias dms='docker-machine start'

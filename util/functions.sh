@@ -3,8 +3,7 @@
 set -e
 
 if [[ `type message 2>/dev/null; echo $?` ]]; then
-    echo "bey"
-    return
+    exit
 fi
 
 warn() {

@@ -7,21 +7,17 @@ HISTSIZE=1000000
 
 export DOTFILES=$HOME/.dotfiles
 
-#set english locale
-#if [[ ! $LC_ALL == 'en_EN.UTF-8' ]]; then
-#	export LC_ALL=en_EN.UTF-8
-#fi
-
 if [ -e "$HOME/.paths" ]; then
-	for _PATH in `cat ~/.paths`; do
-		if [[ ! -d "$_PATH" ]]; then
-            continue
-        fi
-        PATH=$PATH:$_PATH
-	done
+    for p in `< ~/.paths`; do
+        _p="${p//$\HOME/$HOME}"
+        [[ -d $_p ]] && PATH=$PATH:$_p
+        #eval "[[ -d $p ]]" && PATH=$PATH:`echo "${p//$\HOME/$HOME}"`
+    done
 fi
 
-PATH=$PATH:$DOTFILES/bin:$DOTFILES/vim.link/bin
+unset _p
+
+export PATH=$PATH:$DOTFILES/bin:$DOTFILES/vim.link/bin
 
 for rc in .osxrc .bashrc .aliases .functionsrc .localrc .gorc; do
 	if [ ! -e "$HOME/$rc" ]; then
@@ -29,6 +25,8 @@ for rc in .osxrc .bashrc .aliases .functionsrc .localrc .gorc; do
 	fi
     source "$HOME/$rc"
 done
+
+PATH=./node_modules/bin:$PATH
 
 export COMPOSER_BIN="/usr/local/bin/composer"
 export PHP_BIN="/usr/local/bin/php"

@@ -124,6 +124,7 @@ brew install -v php56-redis
 brew install -v php56-imagick
 brew install -v php56-msgpack
 brew install -v php56-xdebug
+brew install -v php56-yaml
 
 brew unlink -v --force php56
 
@@ -142,7 +143,8 @@ brew install -v php70-memcached --HEAD
 brew install -v php70-redis --HEAD
 brew install -v php70-imagick --HEAD
 brew install -v php70-msgpack --HEAD
-brew install -v php56-apcu --HEAD
+brew install -v php70-apcu --HEAD
+brew install -v php70-yaml --HEAD
 
 ## node version manager
 if test ! `which nvm`; then
