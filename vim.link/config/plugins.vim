@@ -73,7 +73,7 @@ let g:easytags_async = 1
 let g:easytags_dynamic_files = 1
 """ Update tags on buffer write
 """ will mess up syntax
-"let g:easytags_events = ['BufWritePost']
+let g:easytags_events = ['BufWritePost']
 
 """ languages: 
 if !exists('g:easytags_languages')
@@ -212,26 +212,14 @@ endif
 
 
 if has('autocmd')
-	au BufNewFile,BufRead,BufReadPre,BufReadPost,BufEnter *.jsx :call <SID>SetNoFold()
-	au BufLeave,BufDelete,BufWipeOut,BufHidden *.jsx :call <SID>ResetFoldState(g:fold_state)
+	au! BufNewFile,BufRead,BufReadPre,BufReadPost,BufEnter *.jsx :call <SID>SetNoFold()
+	au! BufLeave,BufDelete,BufWipeOut,BufHidden *.jsx :call <SID>ResetFoldState(g:fold_state)
 endif
 """}}}
 
 """}}}
 
 """ Javascript: {{{
-"let javascript_fold = 0
-"let b:javascript_fold = 0
-"let g:javascript_fold = 0
-let javascript_enable_domhtmlcss = 1
-let javascript_ignore_javaScriptdoc = 0
-"""}}}
-
-""" JsDoc: {{{
-""" allow es6 syntax
-let g:jsdoc_enable_es6 = 1
-""" promt for interfactive input
-let g:jsdoc_allow_input_prompt = 1
 """}}}
 
 """ Json: {{{
@@ -333,8 +321,8 @@ endif
 """}}}
 
 """ GoYo: {{{
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+au! User GoyoEnter Limelight
+au! User GoyoLeave Limelight!
 nmap <leader>fuckit :Goyo<CR>
 nmap <leader>gt :Goyo<CR>
 
@@ -344,117 +332,6 @@ let g:goyo_width=120
 """ Local Vimrc: {{{
 let g:local_vimrc = {'names':['.vimrc'],'hash_fun':'LVRHashOfFile'}
 """ }}}
-
-""" Padawan: {{{
-let g:padawan#composer_command = $COMPOSER_BIN
-"""}}}
-
-""" PHPcomplete: {{{
-""" Enables use of tags when the plugin tries to find variables. 
-""" When enabled the plugin will search for the variables in the tag files with kind 'v', 
-""" lines like $some_var = new Foo; but these usually yield highly inaccurate results and can be fairly slow.
-let g:phpcomplete_search_tags_for_variables = 0
-
-""" When enabled the preview window's content will include information extracted from 
-""" docblock comments of the completions. Enabling this option will add return types to the 
-""" completion menu for functions too.
-let g:phpcomplete_parse_docblock_comments = 1
-
-""" When enabled the taglist() lookups will be cached and subsequent searches for the same pattern will 
-""" not check the tagfiles any more, thus making the lookups faster. Cache expiration is based on 
-""" the mtimes of the tag files.
-let g:phpcomplete_cache_taglists = 1
-
-""" This option controls the number of characters the user needs to type before the tags will be searched 
-""" for namespaces and classes in typed out namespaces in "use ..." context. Setting this to 0 is not 
-""" recommended because that means the code have to scan every tag, and vim's taglist() function runs 
-""" extremly slow with a "match everything" pattern.
-let g:phpcomplete_min_num_of_chars_for_namespace_completion = 2
-
-""" When enabled the <C-]> will be mapped to phpcomplete#JumpToDefinition() which will try to make a more 
-""" educated guess of the current symbol's location than simple tag search. If the symbol's location cannot 
-""" be found the original <C-]> functionality will be invoked
-let g:phpcomplete_enhance_jump_to_definition = 1
-
-let g:phpcomplete_mappings = {
-            \ 'jump_to_def': '<C-ü>',
-            \ }
-"""}}}
-
-"" PHP Pdv: {{{
-let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
-
-if has("autocmd")
-    autocmd FileType php nnoremap <leader>doc :call pdv#DocumentWithSnip()<CR>
-endif
-
-
-""" PHPCSFixer: {{{
-let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "psr2"                           " which level ?
-let g:php_cs_fixer_config = "default"                       " configuration
-let g:php_cs_fixer_php_path = "/usr/local/bin/php"          " Path to PHP
-let g:php_cs_fixer_fixers_list = ""                         " List of fixers
-let g:php_cs_fixer_enable_default_mapping = 1               " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                              " Call command with dry-run option
-let g:php_cs_fixer_verbose = 1
-
-""" call PHPCSFixer on current directory:
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-""" call PHPCSFixer on current buffer:
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
-"""}}}
-
-""" PHPFolding: {{{
-let php_folding=1
-
-map <F5> <Esc>:EnableFastPHPFolds<Cr>
-map <F6> <Esc>:EnablePHPFolds<Cr>
-map <F7> <Esc>:DisablePHPFolds<Cr>
-""" disable auto folding
-let g:DisableAutoPHPFolding = 1
-"""}}}
-
-""" PHP Namespace: {{{
-"Expands the class name under the cursor to its fully qualified name in insert mode:
-inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-"Expands the class name under the cursor to its fully qualified name in normale:
-noremap <Leader>e :call PhpExpandClass()<CR>
-
-"Automatically adds the corresponding use statement for the class under the cursor in insert mode:
-inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
-"Automatically adds the corresponding use statement for the class under the cursor in normal mode:
-noremap <Leader>un :call PhpInsertUse()<CR>
-"""}}}
-
-""" PHPNamespace: {{{
-nnoremap <silent><leader>nsi :call PhpNamespaceInsert()<CR>
-inoremap <silent><leader>nsg :call PhpNamespaceGet()<CR>
-"""}}}
-
-""" PHPUnit: {{{
-""" function to run Unittest against current buffer
-"function! <SID>RunPHPUnitTest()
-"   "cd %:p:h
-"   pwd
-"   let result = system("vendor/bin/phpunit " . bufname("%"))
-"   split __PHPUnit_Result__
-"   normal! ggdG
-"   setlocal buftype=nofile
-"   call append(0, split(result, '\v\n'))
-"   cd -
-"endfunction
-"
-"""" runs PHPUnit test:
-"nnoremap <leader>pu :call <SID>RunPHPUnitTest()<cr>
-
-let g:phpunit_namespace_prefix='Tests'
-let g:phpunitpath='vendor/bin/phpunit'
-
-nnoremap <silent><leader>pug :call PhpunitGenerate()<CR>
-nnoremap <silent><leader>pur :call PhpunitRun()<CR>
-
-"""}}}
 
 """ Rainbow Parantheses: {{{
 let g:rbpt_colorpairs = [
@@ -476,30 +353,28 @@ let g:rbpt_colorpairs = [
             \ ['red',         'firebrick3'],
             \ ]
 if has('autocmd') && exists('RainbowParenthesesToggle')
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+    au! VimEnter * RainbowParenthesesToggle
+    au! Syntax * RainbowParenthesesLoadRound
+    au! Syntax * RainbowParenthesesLoadSquare
+    au! Syntax * RainbowParenthesesLoadBraces
 endif
 """}}}
 
 """ AutoCorrect: {{{
-if has('autcmd')
-	autocmd FileType text call AutoCorrect()
-endif
+"if has('autcmd')
+" au! FileType text call AutoCorrect()
+"endif
 """}}}
 
 """ SpellBad: {{{
-if has('gui_running')
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-endif
+"if has('gui_running')
+"    highlight SpellBad term=underline gui=undercurl guisp=Orange
+"endif
 """}}}
 
 """ NeoMake: {{{
 """ auto check syntax on filewrite
-if has('autocmd')
-	autocmd! BufWritePost * Neomake
-endif
+autocmd! BufWritePost * Neomake
 
 """ open list without moving the cursor; use :ll to jump to current error
 let g:neomake_open_list = 2
@@ -635,39 +510,6 @@ let g:syntastic_php_checkers=[]
 nmap <Leader>tb :TagbarToggle<CR>
 nnoremap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='ctags'
-let g:tagbar_type_php = {
-            \ 'ctagstype' : 'php',
-            \ 'ctagsbin' : 'ctags',
-            \ 'ctagsargs': '-R --fields=+aimS -f -',
-            \ 'kinds'     : [
-            \ 'd:Constants:0:0',
-            \ 'v:Variables:0:0',
-            \ 'f:Functions:1',
-            \ 'i:Interfaces:0',
-            \ 'c:Classes:0',
-            \ 'p:Properties:0:0',
-            \ 'm:Methods:0:0',
-            \ 'n:Namespaces:0',
-            \ 't:Traits:0',
-            \ ],
-            \ 'sro'        : '::',
-            \ 'kind2scope' : {
-            \ 'c' : 'class',
-            \ 'm' : 'method',
-            \ 'f' : 'function',
-            \ 'i' : 'interface',
-            \ 'n' : 'namespace',
-            \ 't' : 'trait',
-            \ },
-            \ 'scope2kind' : {
-            \ 'class'     : 'c',
-            \ 'method'    : 'm',
-            \ 'function'  : 'f',
-            \ 'interface' : 'i',
-            \ 'namespace' : 'n',
-            \ 'trait'     : 't',
-            \ }
-            \ }
 
 let g:tagbar_type_typescript = {
             \ 'ctagstype': 'typescript',
@@ -683,9 +525,6 @@ let g:tagbar_type_typescript = {
             \ ]
             \ }
 
-let g:tagbar_type_javascript = {
-            \ 'ctagsbin' : 'jsctags'
-            \ }
 """}}}
 
 """ Ultisnips: {{{
@@ -730,7 +569,6 @@ nnoremap <leader>vs :VimShell<CR>
 """}}}
 
 """ Vim Test: {{{
-let test#php#phpunit#executable = '. ~/.dotfiles/bin/php ./vendor/bin/phpunit'
 """ if running in neovim, use :terminal to run tests.
 if has('nvim')
     let test#strategy = 'neovim'
@@ -758,17 +596,6 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_add_preview_to_completeopt = 1
-"
-"""" Helps with language specific completion
-if !exists('g:ycm_semantic_triggers')
-	let g:ycm_semantic_triggers = {}
-endif
-
-let g:ycm_semantic_triggers.php = ['->', '::']
-"""}}}
-
-""" XDEBUG: {{{
-let g:dbgWaitTime = 30
 """}}}
 
 """ Xml: {{{

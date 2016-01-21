@@ -130,7 +130,7 @@ Plug 'vim-scripts/sudo.vim'
 "Plug 'vim-scripts/SyntaxComplete'
 """}}}
 """ YouCompleteMe: {{{
-Plug 'Valloric/YouCompleteMe', { 'do': '. $HOME/.vim/bin/vim_postinstall_ycm.sh' }
+Plug'Valloric/YouCompleteMe', { 'do': '. $HOME/.vim/bin/vim_postinstall_ycm.sh' }
 """}}}
 
 """ NeoComplete: {{{

@@ -1,56 +1,58 @@
-"-------------------------------------------------------------------------------------
-"Syntax:
-"-------------------------------------------------------------------------------------
-
-" Doxygen:
-if has("autocmd")
-	au Syntax cuda
-				\ if (exists('b:load_doxygen_syntax') && b:load_doxygen_syntax)
-				\       || (exists('g:load_doxygen_syntax') && g:load_doxygen_syntax)
-				\   | runtime! syntax/doxygen.vim
-				\ | endif
-endif
-
-if !exists("autocommands_loaded")
-	let autocommands_loaded = 1
-
-	" Sass And Less CSS Sytax:
-	au BufNewFile,BufRead *.less       set ft=less
-	au BufNewFile,BufRead *.scss       set ft=scss
-	au BufNewFile,BufRead *.sass       set ft=sass
+augroup ft_syntax
+	autocmd!
+	" sass and less css sytax:
+	autocmd BufNewFile,BufRead *.less       setlocal ft=less
+	autocmd BufNewFile,BufRead *.scss       setlocal ft=scss
+	autocmd BufNewFile,BufRead *.sass       setlocal ft=sass
 	" Typescript And Dart:
-	au BufNewFile,BufRead *.ts         set ft=typescript
-	au BufRead,BufNewFile *.dart       set ft=dart
+	autocmd BufNewFile,BufRead *.ts         setlocal ft=typescript
+	autocmd BufRead,BufNewFile *.dart       setlocal ft=dart
 	" PHP: 
-	"au BufRead,BufNewFile *.{php,phar} set ft=php
+	"autocmd BufRead,BufNewFile *.{php,phar} setlocal ft=php
 	" md, markdown, and mk are markdown and define buffer-local preview
 	"-------------------------------------------------------------------------------------
-	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
-	au BufRead,BufNewFile .*{rc} set ft=sh
-	"au BufRead,BufNewFile *.{jshintrc,*rc} set ft=rc
-	au BufRead,BufNewFile *.{vimrc,gvimrc} set ft=vim
+	autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} setlocal ft=markdown
+	autocmd BufRead,BufNewFile .*{rc} setlocal ft=sh
+	"autocmd BufRead,BufNewFile *.{jshintrc,*rc} setlocal ft=rc
+	autocmd BufNewFile,BufRead *rc,*.profile setlocal ft=sh
+	autocmd BufRead,BufNewFile *.{vimrc,gvimrc} setlocal ft=vim
 
-	" Json:
-	"-------------------------------------------------------------------------------------
-	"au BufNewFile,BufRead *.json set ft=javascript
+	"" Json:
+	""-------------------------------------------------------------------------------------
+	""autocmd BufNewFile,BufRead *.json setlocal ft=javascript
 
-	"	au BufRead,BufNewFile *.txt call s:setupWrapping()
-	" Typoscript:
-	"	au BufNewFile,BufRead mozex.textarea.* setlocal filetype=typoscript
-	"	au BufNewFile,BufRead *.ts setlocal filetype=typoscript 	
-	" Templateing:
-	"au BufRead,BufNewFile *.twig       set filetype=htmljinja
-	"au BufRead,BufNewFile *.twig       set filetype=twig
-	au BufRead,BufNewFile *.handlebars set ft=html
-	" Smarty:	
-	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
-	" Underscore Templates:	
-	au BufNewFile,BufRead *.jst set syntax=jst
-	au BufNewFile,BufRead *.tpl set syntax=jst
-	" ObjectiveJ: 	
-	au BufNewFile,BufRead *.j set syntax=objj
+	""	autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+	"" typoscript:
+	""	autocmd BufNewFile,BufRead mozex.textarea.* setlocal ft=typoscript
+	""	autocmd BufNewFile,BufRead *.ts setlocal ft=typoscript 	
+	"" templateing:
+	""autocmd BufRead,BufNewFile *.twig       setlocal ft=htmljinja
+	""autocmd BufRead,BufNewFile *.twig       setlocal ft=twig
+	autocmd BufRead,BufNewFile *.handlebars setlocal ft=html
+	" smarty:	
+	autocmd BufNewFile,BufRead *.tpl setlocal ft=smarty 	
+	" underscore templates:	
+	autocmd BufNewFile,BufRead *.jst setlocal syntax=jst
+	autocmd BufNewFile,BufRead *.tpl setlocal syntax=jst
+	" objectiveJ: 	
+	autocmd BufNewFile,BufRead *.j setlocal syntax=objj
 
-	"au BufWritePost *.php !phpctags %s &
-	"au VimEnter * NERDTree
+	autocmd BufNewFile,BufRead *.plist setlocal ft=plist
+	autocmd BufNewFile,BufRead *.rst setlocal ft=rust
+	autocmd BufNewFile,BufRead *.go setlocal ft=go
+	autocmd BufNewFile,BufRead *.groovy setlocal ft=groovy
+	autocmd BufNewFile,BufRead *.ex setlocal ft=elixir
+	autocmd BufNewFile,BufRead *.j setlocal ft=objj
+	autocmd BufNewFile,BufRead *.objc setlocal ft=objc
+	autocmd BufNewFile,BufRead *.switf setlocal ft=swift
+	autocmd BufNewFile,BufRead *.elm setlocal ft=elm
+	autocmd BufNewFile,BufRead *.dart setlocal ft=dart
 
-endif
+	"" Treat .rss and .atom feeds as xml
+	"autocmd BufNewFile,BufRead *.rss,*.atom setlocal ft=xml
+	"" Treat .std template files as php
+	"autocmd BufNewFile,BufRead *.std setlocal ft=php
+
+	"autocmd BufWritePost *.php !phpctags %s &
+	"autocmd VimEnter * NERDTree
+augroup END
