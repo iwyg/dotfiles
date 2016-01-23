@@ -1,5 +1,45 @@
 " Enable file type detection
-filetype on
+augroup ft_assignment
+	" sass and less css sytax:
+	"autocmd BufNewFile,BufRead *.less       setlocal ft=less
+	"autocmd BufNewFile,BufRead *.scss       setlocal ft=scss
+	"autocmd BufNewFile,BufRead *.sass       setlocal ft=sass
+	"autocmd BufNewFile,BufRead *.ts         setlocal ft=typescript
+	"autocmd BufRead,BufNewFile *.dart       setlocal ft=dart
+	"autocmd BufRead,BufNewFile *.{php,phar} setlocal ft=php
+	"autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} setlocal ft=markdown
+	"autocmd BufRead,BufNewFile .*{rc} setlocal ft=sh
+	"autocmd BufRead,BufNewFile *.{jshintrc,*rc} setlocal ft=rc
+	"autocmd BufNewFile,BufRead *rc,*.profile setlocal ft=sh
+	"autocmd BufRead,BufNewFile *.{vimrc,gvimrc} setlocal ft=vim
+
+	""	autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+	"" typoscript:
+	""	autocmd BufNewFile,BufRead mozex.textarea.* setlocal ft=typoscript
+	""	autocmd BufNewFile,BufRead *.ts setlocal ft=typoscript 	
+
+	""autocmd BufRead,BufNewFile *.twig       setlocal ft=htmljinja
+	""autocmd BufRead,BufNewFile *.twig       setlocal ft=twig
+
+	"autocmd BufNewFile,BufRead *.plist setlocal ft=plist
+	"autocmd BufNewFile,BufRead *.rst setlocal ft=rust
+	"autocmd BufNewFile,BufRead *.go setlocal ft=go
+	"autocmd BufNewFile,BufRead *.groovy setlocal ft=groovy
+	"autocmd BufNewFile,BufRead *.ex setlocal ft=elixir
+	"autocmd BufNewFile,BufRead *.objc setlocal ft=objc
+	"autocmd BufNewFile,BufRead *.switf setlocal ft=swift
+	"autocmd BufNewFile,BufRead *.elm setlocal ft=elm
+	"autocmd BufNewFile,BufRead *.dart setlocal ft=dart
+
+	" Treat .rss and .atom feeds as xml
+	autocmd BufNewFile,BufRead *.rss,*.atom setlocal ft=xml
+	" Treat .std template files as php
+	autocmd BufNewFile,BufRead *.std setlocal ft=php
+	autocmd BufRead,BufNewFile *.handlebars setlocal ft=html
+	" smarty:	
+	autocmd BufNewFile,BufRead *.tpl setlocal ft=smarty 	
+"""}}}
+augroup END
 
 """ omnicompletion {{{
 "augroup ft_completion
@@ -31,14 +71,11 @@ filetype on
 "augroup END
 """}}}
 
-    """ Indentation {{{
-    " Syntax of these languages is fussy over tabs Vs spaces
-augroup indentation
+""" Indentation {{{
+" Syntax of these languages is fussy over tabs Vs spaces
+augroup ft_indentation
 	autocmd!
-    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-    " Customisations based on house-style (arbitrary)
+    autocmd FileType make                  setlocal ts=8 sts=8 sw=8 noexpandtab
     autocmd FileType Dockerfile            setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType html,xhtml,htmljinja  setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType twig,blade,smarty     setlocal ts=2 sts=2 sw=2 expandtab
@@ -52,23 +89,22 @@ augroup indentation
     autocmd FileType json                  setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType blade                 setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType toml                  setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType yaml                  setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType py                    setlocal ts=8 sts=4 sw=4 expandtab
     autocmd FileType sh,zsh,bash           setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType rcshell               setlocal ts=4 sts=4 sw=4 expandtab
-    """}}}
+    autocmd FileType php                   setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType javascript            setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
+"""}}}
 
 """ Filetypes {{{
 augroup ft_mappings
 	autocmd!
-
-    " strip trailing space on buffer save
-    "autocmd BufWritePre *.py,*.js,*.xsl,*.html,*.php,*.xml,*.css,*.less :call <SID>StripTrailingWhitespaces()
-    autocmd BufWritePre *.py,*.js,*.xsl,*.html,*.php,*.xml,*.css,*.less :call StripTrailingWhitespaces()
+    "strip trailing space on buffer save
+    autocmd BufWritePre *.py,*,php,*.js,*.xsl,*.html,*.xml,*.css,*.less :call StripTrailingWhitespaces()
     " Manual Mapping:   
     "au! BufReadPost *.php  set keywordprg=pman
     autocmd BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
     autocmd BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
-    
 augroup END
-"""}}}

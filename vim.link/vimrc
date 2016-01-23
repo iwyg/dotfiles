@@ -39,11 +39,8 @@ set timeoutlen=1000 ttimeoutlen=0
 """ set the working shell:
 set shell=/bin/zsh
 
-
-"
-"""" Status bar
-"set laststatus=2
-"disable statusline for poweline
+""" Status bar
+set laststatus=2
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
 
@@ -79,9 +76,10 @@ set guioptions-=r
 """}}}
 
 """ toggle line highlighting on insert mode
-if has('autocmd')
-    autocmd! InsertEnter,InsertLeave * set cul!
-endif
+augroup toggle_hlsearch
+	autocmd!
+    autocmd InsertEnter,InsertLeave * set cul!
+augroup END
 
 """ formatting {{{
 set tabstop=4
@@ -121,13 +119,18 @@ set foldlevel=2
 set tags=./tags,tags
 """}}}
 
+""" navigating {{{
+"show matching brackets
+set showmatch "show matching brackets
+"""}}}
+
 """ searching: {{{
 set ignorecase
 set smartcase
 set incsearch
-set showmatch "show matching brackets
 set hlsearch
 set gdefault
+
 " see Ack.vim for grepprg
 if executable('ag')
     set grepprg=ag
@@ -156,9 +159,10 @@ set pumheight=15
 "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 """ auto close preview
-if has('autocmd')
-    autocmd! CompleteDone * pclose
-endif
+augroup completion
+	autocmd!
+    autocmd CompleteDone * pclose
+augroup END
 """}}}
 
 """ wrap text: {{{
@@ -201,10 +205,11 @@ endif
 nnoremap <leader>v :e $MYVIMRC<CR>
 nnoremap <leader>vv :vsplit $MYVIMRC<CR>
 
-if has('autocmd')
-    " auto source vimrc on save:
+" auto source vimrc on save:
+augroup vimrc_sourcing
+	autocmd!
     autocmd! BufWritePost $MYVIMRC nested :source $MYVIMRC
-endif
+augroup END
 """}}}
 
 
@@ -214,10 +219,10 @@ endif
 """ System Clipboard Copy And Paste
 set pastetoggle=<F2> "F2 before pasting to preserve indentation
 """ Copy paste to/from clipboard
-vnoremap <D-c> "*y
-map <silent><Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
-map <silent><Leader><S-p> :set paste<CR>O<esc>"*]p:set nopaste<cr>"
-map <silent><D-v> :set paste<CR>o<esc>"*]p:set nopaste<cr>"
+"vnoremap <D-c> "*y
+"map <silent><Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
+"map <silent><Leader><S-p> :set paste<CR>O<esc>"*]p:set nopaste<cr>"
+"map <silent><D-v> :set paste<CR>o<esc>"*]p:set nopaste<cr>"
 
 """ nnoremap <silent> <F5> :call <SID>StripTrailingWhitespaces()<CR>
 nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
@@ -231,44 +236,31 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
-
-""" disable backspace in insert mode
-"inoremap <backspace> <nop>
-"""-----------------------------------------------------------------------------------------------------
 """}}}
-
-
 
 """ tag jump to next tag:
 nnoremap ü <C-]>
 """ tag jump to previous tag:
 nnoremap <C-Ü> <C-O>
-
 """ switch between current and previous buffer
 nmap <S-TAB> :b#<CR>
 vmap <S-TAB> :b#<CR>
-
 """ next buffer
 nnoremap <silent> <C-L> :bn<CR>
 nnoremap <leader>bn <C-l>
 """ previous buffer
 nnoremap <silent> <C-H> :bp<CR>
 nnoremap <leader>bp <C-h>
-
 """ next tab
 nmap <leader>tn :tabnext<CR>
 vmap <leader>tn :tabnext<CR>
-
 """ previous tab
 nmap <leader>tp :tabprevious<CR>
 vmap <leader>tp :tabprevious<CR>
-
 """ toggle line numbers:
 nmap <Leader>N :set number!<CR>
-
 """ toggle relative line numbers:
 nmap <Leader>RN :set relativenumber!<CR>
-
 """ Shortcut to rapidly toggle `set list`
 nmap <leader>L :set list!<CR>
 
@@ -284,31 +276,25 @@ endif
 set re=0
 
 """ source rest of config
-if !exists('s:sources_loaded')
-    let s:sources_loaded = 1
-    source $HOME/.vim/config/variables.vim
-    source $HOME/.vim/config/functions.vim
-    source $HOME/.vim/config/syntax.vim
-    source $HOME/.vim/config/filetypes.vim
-    source $HOME/.vim/config/plugins.vim
-endif
+source $HOME/.vim/config/variables.vim
+source $HOME/.vim/config/functions.vim
+source $HOME/.vim/config/syntax.vim
+source $HOME/.vim/config/filetypes.vim
+source $HOME/.vim/config/plugins.vim
 
 """-----------------------------------------------------------------------------------------------------
 """ Post Setup:
 call SetCurrentColorScheme(myCs, myBg)
 """ Php Syntax Override:
 function! PhpSyntaxOverride()
-    hi! def link phpDocTags  phpFunctions
-    hi! def link phpDocParam Comment
-    hi! def link phpDocIdentifier phpFunctions
-    hi! def link phpNowDoc Comment
-    hi! def link phpHereDoc Comment
+    "hi! def link phpDocTags  phpFunctions
+    "hi! def link phpDocParam Comment
+    "hi! def link phpDocIdentifier phpFunctions
+    "hi! def link phpNowDoc Comment
+    "hi! def link phpHereDoc Comment
 endfunction
 
-au! FileType php                   setlocal ts=4 sts=4 sw=4 expandtab
-au! CursorMoved
-
-"augroup phpSyntaxOverride
-"  autocmd!
-"  autocmd FileType php call PhpSyntaxOverride()
-"augroup END
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END

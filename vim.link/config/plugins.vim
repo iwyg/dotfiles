@@ -46,7 +46,7 @@ nmap <leader>hex :ColorHEX<CR>
 """}}}
 
 """ Composer: {{{
-let g:composer_cmd = $COMPOSER_BIN
+let g:composer_cmd = system('which composer')
 """}}}
 """ GunDo: {{{
 nmap <leader>gdt GundoToggle<CR>
@@ -75,7 +75,7 @@ let g:easytags_dynamic_files = 1
 """ will mess up syntax
 let g:easytags_events = ['BufWritePost']
 
-""" languages: 
+""" languages:
 if !exists('g:easytags_languages')
     let g:easytags_languages = {}
 endif
@@ -107,6 +107,19 @@ endif
 let g:easytags_languages.jsx.cmd = 'jsx'
 """}}}
 
+""" Javascript: {{{
+let javascript_enable_domhtmlcss = 1
+let javascript_ignore_javaScriptdoc = 0
+"""}}}
+
+""" JsDoc: {{{
+""" allow es6 syntax
+let g:jsdoc_enable_es6 = 1
+""" promt for interfactive input
+let g:jsdoc_allow_input_prompt = 1
+"""}}}
+
+
 """ NetRW: {{{
 let g:netrw_liststyle=3
 """}}}
@@ -114,19 +127,19 @@ let g:netrw_liststyle=3
 """ VimFiler: {{{
 nnoremap <leader>fe :VimFilerExplorer<CR>
 """ let vimfiler be the default file explorer
-let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_as_default_explorer = 0
 """ tree icons
 let g:vimfiler_tree_leaf_icon = ""
 let g:vimfiler_tree_opened_icon = "▼"
 let g:vimfiler_tree_closed_icon = "▶︎"
-""" auto open vimfiler explorer if no startfiles are present 
+""" auto open vimfiler explorer if no startfiles are present
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | exec ':VimFilerExplorer' | endif
 """}}}
 
 "if exists(':NERDTree')
 "    """ NERDTree: {{{
-"    let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
+"    let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer
 "    let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
 "    let NERDTreeShowHidden = 1
 "    let NERDTreeAutoDeleteBuffer = 1
@@ -185,7 +198,9 @@ let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spa
 """ allow jsx in .js files
 let g:jsx_ext_required = 0
 let g:jsx_pragma_required = 0
+"""}}}
 
+""" Jsx Folding: {{{
 """ disable folding for js/jsx files
 function! <SID>SetVar(var, cmd)
 	exec ':redir => '.a:var
@@ -210,17 +225,13 @@ if !exists('g:fold_state')
 	call <SID>CaptureFoldState()
 endif
 
-
-if has('autocmd')
-	au! BufNewFile,BufRead,BufReadPre,BufReadPost,BufEnter *.jsx :call <SID>SetNoFold()
-	au! BufLeave,BufDelete,BufWipeOut,BufHidden *.jsx :call <SID>ResetFoldState(g:fold_state)
-endif
+augroup js_folding
+	autocmd!
+	autocmd BufNewFile,BufRead,BufReadPre,BufReadPost,BufEnter *.jsx :call <SID>SetNoFold()
+	autocmd BufLeave,BufDelete,BufWipeOut,BufHidden *.jsx :call <SID>ResetFoldState(g:fold_state)
+augroup END
 """}}}
 
-"""}}}
-
-""" Javascript: {{{
-"""}}}
 
 """ Json: {{{
 """ prettyfy json:
@@ -232,7 +243,7 @@ nmap gm :LivedownToggle<CR>
 "Autorun markdown preview
 let g:livedown_autorun = 1
 """ should the browser window pop-up upon previewing
-let g:livedown_open = 1 
+let g:livedown_open = 1
 """ the port on which Livedown server will run
 let g:livedown_port = 1337
 """}}}
@@ -279,7 +290,7 @@ let g:vim_markdown_frontmatter=1
 """}}}
 
 """ DeoPlete: {{{
-if has('nvim') 
+if has('nvim')
 	let g:acp_enableAtStartup = 0
 	""" Enables at startup
 	let g:deoplete#enable_at_startup = 1
@@ -299,7 +310,7 @@ if has('nvim')
 endif
 """}}}
 """ NeoComplete: {{{
-if !has('nvim') 
+if !has('nvim')
 	""" Disable AutoComplPop.
 	let g:acp_enableAtStartup = 0
 	""" Enables at startup
@@ -321,12 +332,16 @@ endif
 """}}}
 
 """ GoYo: {{{
-au! User GoyoEnter Limelight
-au! User GoyoLeave Limelight!
+let g:goyo_width=120
+
 nmap <leader>fuckit :Goyo<CR>
 nmap <leader>gt :Goyo<CR>
 
-let g:goyo_width=120
+augroup goyo_limelight
+	autocmd!
+	autocmd User GoyoEnter Limelight
+	autocmd User GoyoLeave Limelight!
+augroup END
 """ }}}
 
 """ Local Vimrc: {{{
@@ -454,6 +469,107 @@ let g:neomake_php_phpcs_args_standard='PSR2'
 """}}}
 """}}}
 
+""" Padawan: {{{
+let g:padawan#composer_command = $COMPOSER_BIN
+"""}}}
+
+""" PHPcomplete: {{{
+""" Enables use of tags when the plugin tries to find variables.
+""" When enabled the plugin will search for the variables in the tag files with kind 'v',
+""" lines like $some_var = new Foo; but these usually yield highly inaccurate results and can be fairly slow.
+let g:phpcomplete_search_tags_for_variables = 0
+
+""" When enabled the preview window's content will include information extracted from
+""" docblock comments of the completions. Enabling this option will add return types to the
+""" completion menu for functions too.
+let g:phpcomplete_parse_docblock_comments = 1
+
+""" When enabled the taglist() lookups will be cached and subsequent searches for the same pattern will
+""" not check the tagfiles any more, thus making the lookups faster. Cache expiration is based on
+""" the mtimes of the tag files.
+let g:phpcomplete_cache_taglists = 1
+
+""" This option controls the number of characters the user needs to type before the tags will be searched
+""" for namespaces and classes in typed out namespaces in "use ..." context. Setting this to 0 is not
+""" recommended because that means the code have to scan every tag, and vim's taglist() function runs
+""" extremly slow with a "match everything" pattern.
+let g:phpcomplete_min_num_of_chars_for_namespace_completion = 2
+
+""" When enabled the <C-]> will be mapped to phpcomplete#JumpToDefinition() which will try to make a more
+""" educated guess of the current symbol's location than simple tag search. If the symbol's location cannot
+""" be found the original <C-]> functionality will be invoked
+let g:phpcomplete_enhance_jump_to_definition = 1
+
+let g:phpcomplete_mappings = {
+			\ 'jump_to_def': '<C-ü>',
+			\ }
+"""}}}
+
+"" PHP Pdv: {{{
+let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
+
+augroup php_doc
+	autocmd!
+	autocmd FileType php nnoremap <buffer> <leader>doc :call pdv#DocumentWithSnip()<CR><Paste>
+augroup END
+"""}}}
+
+
+""" PHPCSFixer: {{{
+""" define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"
+""" fixer standard
+let g:php_cs_fixer_level = "psr2"
+let g:php_cs_fixer_config = "default"
+let g:php_cs_fixer_php_path = "/usr/local/bin/php"
+""" List of fixers
+let g:php_cs_fixer_fixers_list = ""
+""" Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_enable_default_mapping = 1
+""" Call command with dry-run option
+let g:php_cs_fixer_dry_run = 0
+let g:php_cs_fixer_verbose = 1
+
+""" call PHPCSFixer on current directory:
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+""" call PHPCSFixer on current buffer:
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+"""}}}
+
+""" PHPFolding: {{{
+let php_folding=0
+
+map <F5> <Esc>:EnableFastPHPFolds<Cr>
+map <F6> <Esc>:EnablePHPFolds<Cr>
+map <F7> <Esc>:DisablePHPFolds<Cr>
+""" disable auto folding
+let g:DisableAutoPHPFolding = 1
+"""}}}
+
+""" PHP Namespace: {{{
+"Expands the class name under the cursor to its fully qualified name in insert mode:
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+"Expands the class name under the cursor to its fully qualified name in normale:
+noremap <Leader>e :call PhpExpandClass()<CR>
+
+"Automatically adds the corresponding use statement for the class under the cursor in insert mode:
+inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
+"Automatically adds the corresponding use statement for the class under the cursor in normal mode:
+noremap <Leader>un :call PhpInsertUse()<CR>
+"""}}}
+
+""" PHPNamespace: {{{
+nnoremap <silent><leader>nsi :call PhpNamespaceInsert()<CR>
+inoremap <silent><leader>nsg :call PhpNamespaceGet()<CR>
+"""}}}
+
+""" PHP Refeactoring Toolbox: {{{
+let g:phpunit_namespace_prefix='Tests'
+let g:phpunitpath='vendor/bin/phpunit'
+
+nnoremap <silent><leader>pug :call PhpunitGenerate()<CR>
+nnoremap <silent><leader>pur :call PhpunitRun()<CR>
+"""}}}
 """ Syntastic: {{{
 """ settings:
 "let g:syntastic_quiet_messages = {'level': 'warnings'}
@@ -473,7 +589,7 @@ let g:neomake_php_phpcs_args_standard='PSR2'
 "let g:syntastic_json_exec = "/usr/local/share/npm/bin/jsonlint"
 "let g:syntastic_python_exec = "/usr/local/bin/python3.4"
 """" checkers:
-"let g:syntastic_php_checkers=['phpcs', 'php', 'phpmd']
+let g:syntastic_php_checkers=['phpcs', 'php', 'phpmd']
 let g:syntastic_php_checkers=[]
 "let g:syntastic_jsx_checkers = ['eslint']
 "let g:syntastic_javascript_checkers = ['eslint']
@@ -488,13 +604,13 @@ let g:syntastic_php_checkers=[]
 "let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 "let g:syntastic_php_phpmd_post_args = "text unusedcode"
 "
-"""" PHP force PSR-2 standard 
+"""" PHP force PSR-2 standard
 "let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
 """" Read the clang complete file
 ""let g:syntastic_objc_config_file = '.clang_complete'
 """" Tell it to use clang instead of gcc
 ""let g:syntastic_objc_checker = 'clang'
-"let g:syntastic_enable_balloons=0 
+"let g:syntastic_enable_balloons=0
 "
 """" stausline formatting
 ""set statusline+=%#warningmsg#
@@ -510,6 +626,44 @@ let g:syntastic_php_checkers=[]
 nmap <Leader>tb :TagbarToggle<CR>
 nnoremap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='ctags'
+
+let g:tagbar_type_javascript = {
+            \ 'ctagsbin' : 'jsctags'
+            \ }
+
+let g:tagbar_type_php = {
+			\ 'ctagstype' : 'php',
+			\ 'ctagsbin' : 'ctags',
+			\ 'ctagsargs': '-R --fields=+aimS -f -',
+			\ 'kinds'     : [
+			\ 'd:Constants:0:0',
+			\ 'v:Variables:0:0',
+			\ 'f:Functions:1',
+			\ 'i:Interfaces:0',
+			\ 'c:Classes:0',
+			\ 'p:Properties:0:0',
+			\ 'm:Methods:0:0',
+			\ 'n:Namespaces:0',
+			\ 't:Traits:0',
+			\ ],
+			\ 'sro'        : '::',
+			\ 'kind2scope' : {
+			\ 'c' : 'class',
+			\ 'm' : 'method',
+			\ 'f' : 'function',
+			\ 'i' : 'interface',
+			\ 'n' : 'namespace',
+			\ 't' : 'trait',
+			\ },
+			\ 'scope2kind' : {
+			\ 'class'     : 'c',
+			\ 'method'    : 'm',
+			\ 'function'  : 'f',
+			\ 'interface' : 'i',
+			\ 'namespace' : 'n',
+			\ 'trait'     : 't',
+			\ }
+			\ }
 
 let g:tagbar_type_typescript = {
             \ 'ctagstype': 'typescript',
@@ -585,6 +739,9 @@ nnoremap <leader>tn :TestNearest<CR>
 nnoremap <leader>ts :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tv :TestVisit<CR>
+
+""" php
+let test#php#phpunit#executable = '. ~/.dotfiles/bin/php ./vendor/bin/phpunit'
 """}}}
 
 """ YCM: {{{
@@ -596,8 +753,18 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_add_preview_to_completeopt = 1
+
+"""" Helps with language specific completion
+if !exists('g:ycm_semantic_triggers')
+	let g:ycm_semantic_triggers = {}
+endif
+
+let g:ycm_semantic_triggers.php = ['->', '::']
 """}}}
 
+""" XDEBUG: {{{
+let g:dbgWaitTime = 30
+"""}}}
 """ Xml: {{{
 " setting this variable breaks js/jsx syntax and indentation
 "let g:xml_syntax_folding = 0
