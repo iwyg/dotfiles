@@ -20,3 +20,12 @@ alias updatephp56="brew update && brew upgrade `brew list | grep -i php56 | sed 
 alias updatephp70="brew update && brew upgrade `brew list | grep -i php70 | sed s/:/\\n/g`"
 
 alias beer="brew install -v"
+
+# Docker start sctipt
+alias dockerqs="/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh"
+
+## add os x specific paths:
+PATH=$PATH:/Applications/VirtualBox.app/Contents/MacOS
+PATH=$PATH:$HOME/homebrew/bin
+
+export PATH;

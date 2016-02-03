@@ -1,14 +1,15 @@
 """ Vim Ariline: {{{
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 """}}}
 """ ColorV: {{{
 "Plug 'vim-scripts/colorv.vim'
 """}}}
 """ Goyo: {{{
-"Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 """}}}
 """ Limelight: {{{
-"Plug 'junegunn/limelight.vim'
+Plug 'junegunn/limelight.vim'
 """}}}
 """ Vim Autocorrect: {{{
 "Plug 'panozzaj/vim-autocorrect'
@@ -200,7 +201,7 @@ Plug 'mxw/vim-jsx' | Plug 'pangloss/vim-javascript', { 'do' : 'npm install -g ba
 """}}}
 """ Javascript: {{{
 "Plug 'othree/yajs.vim'
-Plug 'othree/javascript-libraries-syntax.vim' 
+Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'digitaltoad/vim-jade'
 "Plug 'mklabs/grunt.vim'
 "Plug 'aaronj1335/underscore-templates.vim'
@@ -274,7 +275,7 @@ Plug 'adoy/vim-php-refactoring-toolbox', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php', 'do': '. $HOME/.vim/bin/vim_postinstall_php_cs_fixer.sh' }
 "Plug 'Janiczek/vim-latte'
 "Plug 'xsbeats/vim-blade'
-"Plug 'evidens/vim-twig' 
+"Plug 'evidens/vim-twig'
 "Plug 'tokutake/twig-indent', { 'for': 'twig' }
 "Plug 'vim-scripts/phpfolding.vim'
 """}}}

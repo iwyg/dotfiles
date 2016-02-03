@@ -16,7 +16,7 @@ augroup ft_assignment
 	""	autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
 	"" typoscript:
 	""	autocmd BufNewFile,BufRead mozex.textarea.* setlocal ft=typoscript
-	""	autocmd BufNewFile,BufRead *.ts setlocal ft=typoscript 	
+	""	autocmd BufNewFile,BufRead *.ts setlocal ft=typoscript
 
 	""autocmd BufRead,BufNewFile *.twig       setlocal ft=htmljinja
 	""autocmd BufRead,BufNewFile *.twig       setlocal ft=twig
@@ -30,14 +30,15 @@ augroup ft_assignment
 	"autocmd BufNewFile,BufRead *.switf setlocal ft=swift
 	"autocmd BufNewFile,BufRead *.elm setlocal ft=elm
 	"autocmd BufNewFile,BufRead *.dart setlocal ft=dart
-
+	" rc files
+	autocmd BufNewFile,BufRead .*rc setlocal ft=sh
 	" Treat .rss and .atom feeds as xml
 	autocmd BufNewFile,BufRead *.rss,*.atom setlocal ft=xml
 	" Treat .std template files as php
 	autocmd BufNewFile,BufRead *.std setlocal ft=php
 	autocmd BufRead,BufNewFile *.handlebars setlocal ft=html
-	" smarty:	
-	autocmd BufNewFile,BufRead *.tpl setlocal ft=smarty 	
+	" smarty:
+	autocmd BufNewFile,BufRead *.tpl setlocal ft=smarty
 """}}}
 augroup END
 
@@ -103,7 +104,7 @@ augroup ft_mappings
 	autocmd!
     "strip trailing space on buffer save
     autocmd BufWritePre *.py,*,php,*.js,*.xsl,*.html,*.xml,*.css,*.less :call StripTrailingWhitespaces()
-    " Manual Mapping:   
+    " Manual Mapping:
     "au! BufReadPost *.php  set keywordprg=pman
     autocmd BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
     autocmd BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>

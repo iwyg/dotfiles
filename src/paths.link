@@ -3,12 +3,12 @@
 /usr/local/share
 /usr/local/share/aclocal/
 /usr/local/opt/go/libexec/bin
-/bin
 /usr/bin
 /usr/sbin
-/sbin
 /usr/X11/bin
-/Applications/VirtualBox.app/Contents/MacOS/
+/bin
+/sbin
 $HOME/bin
-$HOME/homebrew/bin
 $HOME/.composer/vendor/bin
+./node_modules/bin
+./vendor/bin

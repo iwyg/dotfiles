@@ -7,20 +7,16 @@ HISTSIZE=1000000
 
 export DOTFILES=$HOME/.dotfiles
 
-if [ -e "$HOME/.paths" ]; then
+if [[ -e "$HOME/.paths" ]]; then
     for p in `< ~/.paths`; do
-        _p="${p//$\HOME/$HOME}"
-        [[ -d $_p ]] && PATH=$PATH:$_p
-        #eval "[[ -d $p ]]" && PATH=$PATH:`echo "${p//$\HOME/$HOME}"`
+        PATH=$PATH:"${p//$\HOME/$HOME}"
     done
 fi
-
-unset _p
 
 export PATH=$PATH:$DOTFILES/bin:$DOTFILES/vim.link/bin
 
 for rc in .osxrc .bashrc .aliases .functionsrc .localrc .gorc; do
-	if [ ! -e "$HOME/$rc" ]; then
+	if [[ ! -e "$HOME/$rc" ]]; then
         continue
 	fi
     source "$HOME/$rc"
@@ -33,10 +29,12 @@ export PHP_BIN="/usr/local/bin/php"
 
 # vim Plugins path
 export VIM_PLUGINS=$DOTFILES/vim.link/plugged
+# enable cursor shape in neovim
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 # Base16 Shell
-export THEME="base16-ocean"
-export BACKGROUND="dark"
+#export THEME="base16-ocean"
+#export BACKGROUND="dark"
 
 export PATH
 

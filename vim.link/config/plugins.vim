@@ -36,6 +36,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_theme = 'base16'
 """}}}
 
 """ Color Pickers: {{{
@@ -73,7 +74,7 @@ let g:easytags_async = 1
 let g:easytags_dynamic_files = 1
 """ Update tags on buffer write
 """ will mess up syntax
-let g:easytags_events = ['BufWritePost']
+"let g:easytags_events = ['BufWritePost']
 
 """ languages:
 if !exists('g:easytags_languages')
@@ -127,9 +128,9 @@ let g:netrw_liststyle=3
 """ VimFiler: {{{
 nnoremap <leader>fe :VimFilerExplorer<CR>
 """ let vimfiler be the default file explorer
-let g:vimfiler_as_default_explorer = 0
+let g:vimfiler_as_default_explorer = 1
 """ tree icons
-let g:vimfiler_tree_leaf_icon = ""
+let g:vimfiler_tree_leaf_icon = "-"
 let g:vimfiler_tree_opened_icon = "▼"
 let g:vimfiler_tree_closed_icon = "▶︎"
 """ auto open vimfiler explorer if no startfiles are present
@@ -510,7 +511,7 @@ let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
 
 augroup php_doc
 	autocmd!
-	autocmd FileType php nnoremap <buffer> <leader>doc :call pdv#DocumentWithSnip()<CR><Paste>
+	autocmd FileType php nnoremap <buffer> <leader>doc :call pdv#DocumentWithSnip()<CR>
 augroup END
 """}}}
 
