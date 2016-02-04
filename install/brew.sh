@@ -47,10 +47,12 @@ fi
 if [[ "$1" == true ]]; then
     if test ! `which nvim`; then
         message "Installing NeoVim..."
-        brew_or_msg "install -v" "neovim --HEAD"
+        #brew_or_msg "install -v" "neovim --HEAD"
+        brew_or_msg "install -v" "neovim/neovim/neovim"
     else
         message "Updating NeoVim..."
-        brew_or_msg "reinstall -v" "neovim --HEAD"
+        #brew_or_msg "reinstall -v" "neovim --HEAD"
+        brew_or_msg "upgrade -v" "neovim/neovim/neovim"
     fi
 fi
 
@@ -91,7 +93,7 @@ fi
 
 ## HEAD version to support for objc
 if [[ `brew list | egrep "^ctags$" | xargs` ]]; then
-    brew uninstall ctags 
+    brew uninstall ctags
 fi
 
 message "Installing ctags"
