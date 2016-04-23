@@ -1,7 +1,7 @@
 /usr/local/bin
-/usr/local/sbin/
+/usr/local/sbin
 /usr/local/share
-/usr/local/share/aclocal/
+/usr/local/share/aclocal
 /usr/local/opt/go/libexec/bin
 /usr/bin
 /usr/sbin
@@ -10,5 +10,3 @@
 /sbin
 $HOME/bin
 $HOME/.composer/vendor/bin
-./node_modules/bin
-./vendor/bin

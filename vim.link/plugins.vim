@@ -15,10 +15,10 @@ Plug 'junegunn/limelight.vim'
 "Plug 'panozzaj/vim-autocorrect'
 """}}}
 """ Vim Better Whitespace: {{{
-"Plug 'ntpeters/vim-better-whitespace'
+Plug 'ntpeters/vim-better-whitespace'
 """}}}
 """ Vim Multiple Cursors: {{{
-"Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 """}}}
 """ Vim Test: {{{
 Plug 'janko-m/vim-test'
@@ -30,7 +30,7 @@ Plug 'janko-m/vim-test'
 "Plug 'wesleyche/SrcExpl'
 """}}}
 """ Vim RainbowParentheses: {{{
-"Plug 'vim-scripts/rainbow_parentheses.vim'
+Plug 'vim-scripts/rainbow_parentheses.vim'
 """}}}
 """ Vim Tagbar: {{{
 Plug 'majutsushi/tagbar'
@@ -86,7 +86,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 """}}}
 """ Vim GitGutter: {{{
-"Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 """}}}
 """ Vim Surround: {{{
 Plug 'tpope/vim-surround'
@@ -163,13 +163,13 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'kballard/vim-swift', { 'for' : 'swift', 'do' : 'brew -v install swiftlint swiftgen' }
 """}}}
 """ Objective C: {{{
-Plug 'b4winckler/vim-objc', { 'for' : 'objc, switf' }
+"Plug 'b4winckler/vim-objc', { 'for' : 'objc, switf' }
 """}}}
 """ Objective J: {{{
 "Plug 'nanki/vim-objj'
 """}}}
 """ IOS: {{{
-Plug 'eraserhd/vim-ios'
+"Plug 'eraserhd/vim-ios'
 """}}}
 """ Groovy: {{{
 "Plug 'rdolgushin/groovy.vim'
@@ -181,13 +181,19 @@ Plug 'garyburd/go-explorer', { 'for': 'go' }
 """}}}
 """ CSS: {{{
 Plug 'hail2u/vim-css3-syntax'
-Plug 'ap/vim-css-color', { 'for': 'css' }
+"Plug 'lilydjwg/colorizer'
+"Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'ap/vim-css-color'
+"Plug 'gorodinskiy/vim-coloresque'
 """}}}
 """ SASS: {{{
 Plug 'cakebaker/scss-syntax.vim'
 """}}}
 """ LESS: {{{
 Plug 'groenewege/vim-less'
+"""}}}
+""" PostCSS: {{{
+Plug 'stephenway/postcss.vim'
 """}}}
 """ PList: {{{
 Plug 'darfink/vim-plist'
@@ -196,11 +202,14 @@ Plug 'darfink/vim-plist'
 "Plug 'wting/rust.vim'
 """}}}
 """ JSX: {{{
-Plug 'mxw/vim-jsx' | Plug 'pangloss/vim-javascript', { 'do' : 'npm install -g babel' }
-"Plug 'jsx/jsx.vim'
+Plug 'mxw/vim-jsx' | Plug 'pangloss/vim-javascript'
+"Plug 'mxw/vim-jsx' | Plug 'pangloss/vim-javascript', { 'do' : 'npm install -g babel' }
 """}}}
 """ Javascript: {{{
+"Plug 'isRuslan/vim-es6'
 "Plug 'othree/yajs.vim'
+
+Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'digitaltoad/vim-jade'
 "Plug 'mklabs/grunt.vim'
@@ -209,14 +218,15 @@ Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'claco/jasmine.vim', { 'for': 'javascript' }
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install -g tern && npm install' }
 "Plug 'KabbAmine/gulp-vim', { 'for' : 'javascript' }
-Plug 'vim-scripts/vim-babel', { 'for' : 'javascript' }
+Plug 'vim-scripts/vim-babel', { 'for' : 'javascript' } | Plug 'mattn/webapi-vim'
+Plug 'vim-scripts/npm.vim'
 """}}}
 """ JSON: {{{
 Plug 'elzr/vim-json'
 """}}}
 """ Typescript: {{{
 Plug 'leafgarland/typescript-vim'
-"Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install -g typescript' }
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install -g typescript' }
 """}}}
 """ Ansi Escape: {{{
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -264,12 +274,13 @@ Plug 'mustache/vim-mustache-handlebars'
 """ PHP: {{{
 "Plug 'mkusher/padawan.vim', { 'do': 'composer global require mkusher/padawan --no-interaction' }    " use eclim completion
 "Plug 'StanAngeloff/php.vim' | Plug 'shawncplus/phpcomplete.vim'
+Plug 'mxw/vim-xhp'
 Plug 'StanAngeloff/php.vim'
 "Plug 'shawncplus/phpcomplete.vim'
 Plug 'dantleech/vim-phpunit', { 'for': 'php' }
 Plug 'dantleech/vim-phpnamespace', { 'for': 'php' }
 Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }
-Plug 'tobyS/pdv', { 'for': 'php' }
+Plug 'tobyS/pdv' | Plug 'tobyS/vmustache', { 'for': 'php' }
 Plug 'vim-php/vim-composer'
 Plug 'adoy/vim-php-refactoring-toolbox', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php', 'do': '. $HOME/.vim/bin/vim_postinstall_php_cs_fixer.sh' }

@@ -1,44 +1,15 @@
 " Enable file type detection
 augroup ft_assignment
-	" sass and less css sytax:
-	"autocmd BufNewFile,BufRead *.less       setlocal ft=less
-	"autocmd BufNewFile,BufRead *.scss       setlocal ft=scss
-	"autocmd BufNewFile,BufRead *.sass       setlocal ft=sass
-	"autocmd BufNewFile,BufRead *.ts         setlocal ft=typescript
-	"autocmd BufRead,BufNewFile *.dart       setlocal ft=dart
-	"autocmd BufRead,BufNewFile *.{php,phar} setlocal ft=php
-	"autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} setlocal ft=markdown
-	"autocmd BufRead,BufNewFile .*{rc} setlocal ft=sh
-	"autocmd BufRead,BufNewFile *.{jshintrc,*rc} setlocal ft=rc
-	"autocmd BufNewFile,BufRead *rc,*.profile setlocal ft=sh
-	"autocmd BufRead,BufNewFile *.{vimrc,gvimrc} setlocal ft=vim
-
-	""	autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
-	"" typoscript:
-	""	autocmd BufNewFile,BufRead mozex.textarea.* setlocal ft=typoscript
-	""	autocmd BufNewFile,BufRead *.ts setlocal ft=typoscript
-
-	""autocmd BufRead,BufNewFile *.twig       setlocal ft=htmljinja
-	""autocmd BufRead,BufNewFile *.twig       setlocal ft=twig
-
-	"autocmd BufNewFile,BufRead *.plist setlocal ft=plist
-	"autocmd BufNewFile,BufRead *.rst setlocal ft=rust
-	"autocmd BufNewFile,BufRead *.go setlocal ft=go
-	"autocmd BufNewFile,BufRead *.groovy setlocal ft=groovy
-	"autocmd BufNewFile,BufRead *.ex setlocal ft=elixir
-	"autocmd BufNewFile,BufRead *.objc setlocal ft=objc
-	"autocmd BufNewFile,BufRead *.switf setlocal ft=swift
-	"autocmd BufNewFile,BufRead *.elm setlocal ft=elm
-	"autocmd BufNewFile,BufRead *.dart setlocal ft=dart
-	" rc files
-	autocmd BufNewFile,BufRead .*rc setlocal ft=sh
+	autocmd BufNewFile,BufRead *rc,*.profile              setlocal ft=sh
+	autocmd BufRead,BufNewFile *.{vimrc,gvimrc}           setlocal ft=vim
 	" Treat .rss and .atom feeds as xml
-	autocmd BufNewFile,BufRead *.rss,*.atom setlocal ft=xml
+	autocmd BufNewFile,BufRead *.rss,*.atom               setlocal ft=xml
+	autocmd BufRead,BufNewFile *.handlebars               setlocal ft=html
 	" Treat .std template files as php
-	autocmd BufNewFile,BufRead *.std setlocal ft=php
-	autocmd BufRead,BufNewFile *.handlebars setlocal ft=html
+	autocmd BufNewFile,BufRead *.std                      setlocal ft=php
 	" smarty:
-	autocmd BufNewFile,BufRead *.tpl setlocal ft=smarty
+	autocmd BufNewFile,BufRead *.tpl                      setlocal ft=smarty
+	autocmd BufNewFile,BufRead *.phpml                 setlocal ft=php.html
 """}}}
 augroup END
 
@@ -96,6 +67,9 @@ augroup ft_indentation
     autocmd FileType rcshell               setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType php                   setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType javascript            setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType php.html              setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType markdown              setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType vim                   setlocal ts=4 sts=4 sw=4 expandtab
 augroup END
 """}}}
 
@@ -103,9 +77,46 @@ augroup END
 augroup ft_mappings
 	autocmd!
     "strip trailing space on buffer save
-    autocmd BufWritePre *.py,*,php,*.js,*.xsl,*.html,*.xml,*.css,*.less :call StripTrailingWhitespaces()
+	"autocmd BufWritePre *.py,*,php,*.js,*.jsx,*.xsl,*.html,*.xml,*.css,*.less :call StripTrailingWhitespaces()
     " Manual Mapping:
     "au! BufReadPost *.php  set keywordprg=pman
     autocmd BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
     autocmd BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
+augroup END
+
+
+augroup html
+    autocmd!
+	autocmd FileType html setlocal autoindent smarttab smartindent smartcase nofoldenable fdm=indent
+augroup END
+
+augroup xml
+    autocmd!
+	autocmd FileType xml setlocal autoindent smarttab smartindent smartcase nofoldenable fdm=indent
+augroup END
+
+augroup php
+    autocmd!
+	autocmd FileType php setlocal autoindent smarttab smartindent smartcase nofoldenable fdm=indent
+augroup END
+
+augroup jsx
+    autocmd!
+	autocmd FileType jsx setlocal autoindent smarttab smartindent smartcase nofoldenable
+augroup END
+
+augroup js
+    autocmd!
+	autocmd FileType javascript setlocal autoindent smarttab smartindent smartcase nofoldenable
+augroup END
+
+" prevent beeps for entering ">" chars
+augroup php_matches
+	autocmd!
+	autocmd BufNewFile,BufRead *.php setlocal noshowmatch matchpairs-=<:>
+augroup END
+
+augroup js_matches
+	autocmd!
+	autocmd BufNewFile,BufRead *.js,*.jsx setlocal noshowmatch
 augroup END

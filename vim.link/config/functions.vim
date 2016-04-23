@@ -80,9 +80,7 @@ function! SetCurrentColorScheme(scheme, background)
 
 	if $TERM == 'xterm-color' && &t_Co == 8
 		set t_Co=16
-	endif
-
-	if $TERM == 'xterm-256color' || $TERM == 'screen'
+    elseif $TERM == 'xterm-256color' || $TERM == 'screen'
 		set t_Co=256
 		exec 'set background=' . bg
 		exec 'colorscheme ' . scheme

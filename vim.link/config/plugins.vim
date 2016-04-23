@@ -21,9 +21,9 @@ nnoremap <C-space> :Unite buffer<CR>
 """}}}
 """ Vim Grepper: {{{
 if executable('ag')
-	nnoremap <leader>vg :Grepper! -tool ag -open -switch<CR>
+	nnoremap <leader>vg :Grepper -tool ag -open -switch<CR>
 else
-	nnoremap <leader>vg :Grepper! -tool ack -open -switch<CR>
+	nnoremap <leader>vg :Grepper -tool ack -open -switch<CR>
 endif
 """}}}
 
@@ -424,20 +424,20 @@ nnoremap <leader>ne :ll<CR>
 "	\ 'errorformat': '%f:%l:%c: %m,%-G%.%#',
 "	\ }
 
-let g:neomake_javascript_flow_maker = {
-		\ 'exe': 'flow',
-		\ 'args': ['check', '--one-line', '--old-output-format'],
-		\ 'errorformat': '%f:%l:%c\,%n: %m',
-		\ 'mapexpr': 'substitute(v:val, "\\\\n", " ", "g")',
-		\ }
-
-""" allow new es6 features for js files
-let g:neomake_javascript_jscs_maker = {
-	\ 'exe': 'jscs',
-	\ 'args': ['--no-color', '--preset', 'crockford', '--reporter', 'inline', '--esnext'],
-	\ 'errorformat': '%f: line %l\, col %c\, %m',
-	\ }
-
+"let g:neomake_javascript_flow_maker = {
+"		\ 'exe': 'flow',
+"		\ 'args': ['check', '--one-line', '--old-output-format'],
+"		\ 'errorformat': '%f:%l:%c\,%n: %m',
+"		\ 'mapexpr': 'substitute(v:val, "\\\\n", " ", "g")',
+"		\ }
+"
+"""" allow new es6 features for js files
+"let g:neomake_javascript_jscs_maker = {
+"	\ 'exe': 'jscs',
+"	\ 'args': ['--no-color', '--preset', 'crockford', '--reporter', 'inline', '--esnext'],
+"	\ 'errorformat': '%f: line %l\, col %c\, %m',
+"	\ }
+"
 "let g:neomake_javascript_jsx_eslint_maker = {
 "		\ 'args': ['-f', 'compact'],
 "		\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
@@ -450,29 +450,56 @@ let g:neomake_go_enabled_makers = ['go', 'golint']
 "let g:neomake_jsx_enabled_makers = ['eslint']
 "let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
 let g:neomake_typescript_enabled_makers = ['tsc', 'tsclint']
-let g:neomake_javascript_enabled_makers = ['flow', 'eslint']
+let g:neomake_javascript_enabled_makers = ['eslint']
+
+let g:neomake_markdown_enabled_makers = []
 
 "if !exists('g:neomake_php_phpcs_maker')
 	"let g:neomake_php_phpcs_maker = {}
 "endif
 
+let g:php_cs_bin=system('which phpcs')
+
+"if !exists('g:php_cs_bin')
+"endif
+
 let g:neomake_php_enabled_makers = ['php', 'phpcs']
 let g:neomake_php_phpcs_args_standard='PSR2'
+
+"let g:neomake_php_phpcs_exe=fnamemodify(resolve(expand(system('which phpcs | xargs'))), ':p')
+
+
 "let g:neomake_php_phpcs_maker = {
-	"\ 'exe': 'phpcs',
-	"\ 'args': ['--standard=PSR2'],
-	"\ 'errorformat':
-		"\ '%-GFile\,Line\,Column\,Type\,Message\,Source\,Severity%.%#,'.
-		"\ '"%f"\,%l\,%c\,%t%*[a-zA-Z]\,"%m"\,%*[a-zA-Z0-9_.-]\,%*[0-9]%.%#',
-	"\ }
+"\ 'exe': 'phpcs',
+"\ 'args': ['--standard=PSR2'],
+"\ 'errorformat':
+	"\ '%-GFile\,Line\,Column\,Type\,Message\,Source\,Severity%.%#,'.
+	"\ '"%f"\,%l\,%c\,%t%*[a-zA-Z]\,"%m"\,%*[a-zA-Z0-9_.-]\,%*[0-9]%.%#',
+"\ }
 "let g:neomake_javascript_jsx_enabled_makers = ['eslint']
 
 """}}}
 """}}}
 
+if !exists('g:php_coding_standard')
+	let g:php_coding_standard='psr2'
+endif
+
+if !exists('g:php_bin_path')
+	let g:php_bin_path=system('which php')
+endif
+
 """ Padawan: {{{
 let g:padawan#composer_command = $COMPOSER_BIN
 """}}}
+
+"let g:php_syntax_extensions_enabled = [
+"			\"bcmath", "bz2", "core", "curl", "date", "dom", "ereg", "gd", "gettext",
+"			\"hash", "iconv", "json", "libxml", "mbstring", "mcrypt", "mhash", "mysql", "mysqli",
+"			\"openssl", "pcre", "pdo", "pgsql", "phar", "reflection", "session", "simplexml",
+"			\"soap", "sockets", "spl", "sqlite3", "standard", "tokenizer", "wddx", "xml",
+"			\"xmlreader", "xmlwriter", "zip", "zlib",
+"			\"finfo", "fileinfo", "imagick"]
 
 """ PHPcomplete: {{{
 """ Enables use of tags when the plugin tries to find variables.
@@ -517,12 +544,17 @@ augroup END
 
 
 """ PHPCSFixer: {{{
+
+if !exists('g:php_cs_fixer_bin')
+	let g:php_cs_fixer_bin=system('which php-cs-fixer')
+endif
+
 """ define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"
+let g:php_cs_fixer_path = g:php_cs_fixer_bin
 """ fixer standard
-let g:php_cs_fixer_level = "psr2"
+let g:php_cs_fixer_level = g:php_coding_standard
+let g:php_cs_fixer_php_path = g:php_bin_path
 let g:php_cs_fixer_config = "default"
-let g:php_cs_fixer_php_path = "/usr/local/bin/php"
 """ List of fixers
 let g:php_cs_fixer_fixers_list = ""
 """ Enable the mapping by default (<leader>pcd)
@@ -532,9 +564,9 @@ let g:php_cs_fixer_dry_run = 0
 let g:php_cs_fixer_verbose = 1
 
 """ call PHPCSFixer on current directory:
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><leader>csd :call PhpCsFixerFixDirectory()<CR>
 """ call PHPCSFixer on current buffer:
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+nnoremap <silent><leader>csf :call PhpCsFixerFixFile()<CR>
 """}}}
 
 """ PHPFolding: {{{
@@ -724,6 +756,10 @@ nnoremap <leader>vs :VimShell<CR>
 """}}}
 
 """ Vim Test: {{{
+let test#runners = {
+	\'PHP': ['PHPUnit'],
+	\'JavaScript': ['Jasmine'],
+\}
 """ if running in neovim, use :terminal to run tests.
 if has('nvim')
     let test#strategy = 'neovim'
@@ -743,6 +779,13 @@ nnoremap <leader>tv :TestVisit<CR>
 
 """ php
 let test#php#phpunit#executable = '. ~/.dotfiles/bin/php ./vendor/bin/phpunit'
+"""}}}
+
+""" js
+
+"let test#JavaScript#runner = 'Jasmine'
+"let test#javascript#runner = 'jasmine'
+"let test#javascript#jasmine#executable = './node_modules/.bin/jasmine | babel'
 """}}}
 
 """ YCM: {{{
@@ -778,5 +821,16 @@ let g:gitgutter_enabled = 0
 """}}}
 
 """ Emmet {{{
+imap <leader>ee <C-Y>,<cr>
+nmap <leader>ee <C-Y>,<cr>
+
 let g:user_emmet_mode = 'ni'
+"""}}}
+
+""" BetterWhitespace: {{{
+if !exists('g:better_whitespace_filetypes_blacklist')
+    let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help']
+endif
+
+let g:better_whitespace_filetypes_blacklist+=['markdown']
 """}}}

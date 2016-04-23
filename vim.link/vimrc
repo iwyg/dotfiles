@@ -1,16 +1,20 @@
 """ Disable Vi Compatibility:
 """-----------------------------------------------------------------------------------------------------
 """ init {{{
-set nocompatible
-filetype off
+if !has('nvim')
+    set nocompatible
+endif
+syntax off
+filetype plugin indent off
 """ Vim Plug {{{
 call plug#begin("$HOME/.vim/plugged")
 source $HOME/.vim/plugins.vim
 call plug#end()
 """}}}
-filetype plugin indent on
 syntax on
+filetype plugin indent on
 """}}}
+
 
 """ Swap and Undo {{{
 set directory=.,$TMPDIR
@@ -20,7 +24,7 @@ set undodir=$HOME/.vim/undo
 set undolevels=10000
 set nobackup
 " auto detect filechange
-"set autoread
+set autoread
 """}}}
 
 """ Behaviour And Settings {{{
@@ -32,6 +36,9 @@ if has('mouse') && !has('nvim')
     set mouse=a
     set ttymouse=xterm2
 endif
+if has('mouse_sgr')
+    set ttymouse=sgr
+endif
 """ update time
 "set updatetime=2000
 """" remove timeout for escape sequence:
@@ -42,7 +49,6 @@ set shell=/bin/zsh
 """ Status bar
 set laststatus=2
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-
 
 """ encoding:
 if has('vim_starting')
@@ -63,7 +69,6 @@ set linespace=2
 set formatoptions=qrn1
 set autowrite
 set hidden
-set autoindent
 
 set cpoptions+=$
 
@@ -88,8 +93,11 @@ set softtabstop=4
 set smarttab
 """ use tabs by default:
 set noexpandtab
-"""}}}
 
+""" indentation
+set autoindent
+set smartindent
+"""}}}
 
 """ windows {{{
 """ scrolling
@@ -102,7 +110,6 @@ set splitbelow
 """ Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:›\ ,eol:¬,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
-
 """ code folding: {{{
 set nofoldenable
 "fold based on indent
@@ -113,15 +120,14 @@ set foldmethod=indent
 set foldnestmax=10
 " default folding level
 set foldlevel=2
-
-
 """ ctags {{{
 set tags=./tags,tags
 """}}}
 
 """ navigating {{{
 "show matching brackets
-set showmatch "show matching brackets
+set noshowmatch "show matching brackets
+set matchtime=10
 """}}}
 
 """ searching: {{{
@@ -212,7 +218,6 @@ augroup vimrc_sourcing
 augroup END
 """}}}
 
-
 """-----------------------------------------------------------------------------------------------------
 """ Basic Mappings {{{
 """-----------------------------------------------------------------------------------------------------
@@ -274,7 +279,7 @@ endif
 
 """ if vim slows donw, try using old regex engine (1)
 set re=0
-
+"
 """ source rest of config
 source $HOME/.vim/config/variables.vim
 source $HOME/.vim/config/functions.vim

@@ -19,3 +19,5 @@ tags
 vendor/
 .settings/
 workbench.xmi
+node_modules
+.DS_Store

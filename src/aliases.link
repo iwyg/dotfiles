@@ -1,7 +1,7 @@
 alias apache2ctl='sudo /usr/sbin/apachectl'
 alias mysqlstart='sudo mysqld_safe &'
 alias mysqlstop='mysqladmin -u root -p shutdown'
-alias mysqlrestart='mysqladmin -u root -p shutdown && sudo mysqld_safe &' 
+alias mysqlrestart='mysqladmin -u root -p shutdown && sudo mysqld_safe &'
 
 #alias mvim='mvim -p'
 
@@ -35,6 +35,7 @@ alias gvim='ov -g'
 # alias v, vi, and vim to neovim
 alias v='vim';
 alias vi='vim';
+alias nvim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 alias vimdiff='nvim -d'
 alias vim='nvim'
 alias cl='clear'
@@ -76,3 +77,4 @@ alias dcu='docker-compose up'
 alias dcl='docker-compose logs'
 alias dm='docker-machine'
 alias dms='docker-machine start'
+#alias git_current_branch='$(which git) rev-parse --abbrev-ref HEAD'

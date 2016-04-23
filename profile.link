@@ -7,6 +7,9 @@ HISTSIZE=1000000
 
 export DOTFILES=$HOME/.dotfiles
 
+# ensure rel PATH declarations are prepended
+PATH=./node_modules/.bin:./vendor/bin:$PATH
+
 if [[ -e "$HOME/.paths" ]]; then
     for p in `< ~/.paths`; do
         PATH=$PATH:"${p//$\HOME/$HOME}"
@@ -21,8 +24,6 @@ for rc in .osxrc .bashrc .aliases .functionsrc .localrc .gorc; do
 	fi
     source "$HOME/$rc"
 done
-
-PATH=./node_modules/bin:$PATH
 
 export COMPOSER_BIN="/usr/local/bin/composer"
 export PHP_BIN="/usr/local/bin/php"
