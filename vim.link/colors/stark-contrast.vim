@@ -1,0 +1,1 @@
+../../colour-schemes/vim/colors/stark-contrast.vim

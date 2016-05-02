@@ -1,0 +1,1 @@
+../../colour-schemes/vim/colors/frontier-contrast.vim
