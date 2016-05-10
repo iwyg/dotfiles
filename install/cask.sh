@@ -37,6 +37,11 @@ if test ! `which java > /dev/null`; then
     exit 0
 fi
 
+## if install eclim is enabled
+if [[ "$1" == true ]]; then
+    exit 0
+fi
+
 ## install eclipse ide for eclim plugin
 if [[ ! -e "/Applications/Eclipse.app" ]]; then
     message "Installing Eclipse IDE..."

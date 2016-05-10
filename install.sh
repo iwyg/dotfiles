@@ -72,6 +72,7 @@ get_action_type() {
 
 install_neovim=true
 install_gvim=false
+install_eclim=false
 
 for key in "$@"; do
     key="$1"
@@ -87,6 +88,12 @@ for key in "$@"; do
         ;;
         --with-gvim)
         install_gvim=true
+        shift 1
+        continue
+        ;;
+        *)
+        --with-eclim)
+        install_eclim=true
         shift 1
         continue
         ;;
@@ -115,7 +122,7 @@ if [ `uname` == 'Darwin' ]; then
     . $DOTFILES/install/brew.sh $install_neovim $install_gvim
     # install homebrew packages
     message "installing casks..."
-    . $DOTFILES/install/cask.sh
+    . $DOTFILES/install/cask.sh $install_eclim
 
 else
     error "OS currently not supported"

@@ -1,3 +1,7 @@
+if !exists('g:php_coding_standard')
+	let g:php_coding_standard='psr2'
+endif
+
 """ Unite: {{{
 """ fuzzy searching
 "nmap <C-p> :Unite file_rec/async<CR>i
@@ -464,7 +468,7 @@ let g:php_cs_bin=system('which phpcs')
 "endif
 
 let g:neomake_php_enabled_makers = ['php', 'phpcs']
-let g:neomake_php_phpcs_args_standard='PSR2'
+let g:neomake_php_phpcs_args_standard=g:php_coding_standard
 
 "let g:neomake_php_phpcs_exe=fnamemodify(resolve(expand(system('which phpcs | xargs'))), ':p')
 
@@ -480,10 +484,6 @@ let g:neomake_php_phpcs_args_standard='PSR2'
 
 """}}}
 """}}}
-
-if !exists('g:php_coding_standard')
-	let g:php_coding_standard='psr2'
-endif
 
 if !exists('g:php_bin_path')
 	let g:php_bin_path=system('which php')

@@ -9,4 +9,6 @@
 /bin
 /sbin
 $HOME/bin
+$HOME/docker/bin
 $HOME/.composer/vendor/bin
+$HOME/bin/PythonRemoteDebugging/bin

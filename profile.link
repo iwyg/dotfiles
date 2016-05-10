@@ -43,3 +43,11 @@ export PATH
 #    BASE16_SHELL="$DOTFILES/base16/shell/$THEME.$BACKGROUND.sh"
 #    source $BASE16_SHELL
 #fi
+
+active_interface() {
+    return ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active' | egrep -o -m 1 '^[^\t:]+'
+}
+
+get_ip() {
+    return ipconfig getifaddr active_interface
+}
